@@ -1,5 +1,7 @@
 package SystemManagements;
 
+import java.io.IOError;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class SystemStart {
@@ -24,7 +26,8 @@ public class SystemStart {
 			
 			int selNumber;
 			
-			try{selNumber = scanStart.nextInt(); // 번호를 잘 못 입력하였을 경우 오류 메세지 출력
+			try{selNumber = scanStart.nextInt();// 번호를 잘 못 입력하였을 경우 오류 메세지 출력
+				scanStart.nextLine();
 				if((selNumber<1) || (selNumber>5)) {
 					throw new Exception();
 				}else {
@@ -32,7 +35,10 @@ public class SystemStart {
 					case 1:{				
 						break; // 1번 매출 관리 실행
 					}case 2:{
-//						EmployeeManagements;
+						EmployeeManagements e = new EmployeeManagements();
+						e.employeeList();
+						
+			
 						break; // 2번 직원 관리 실행
 					}case 3:{
 						break; // 3번 고객 관리 실행
@@ -43,6 +49,7 @@ public class SystemStart {
 				}
 			}
 			catch(Exception e) {
+				e.printStackTrace();
 				System.out.println("\n숫자를 다시 입력해주세요\n");
 			}
 		}	
