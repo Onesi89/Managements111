@@ -1,7 +1,5 @@
 package SystemManagements;
 
-import java.io.IOError;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class SystemStart {
@@ -13,6 +11,7 @@ public class SystemStart {
 	public void systemStart(){	
 		while (true) {
 			Scanner scanStart = new Scanner(System.in);
+			System.out.println("------------------");
 			System.out.println("     관리자 모드입니다.");
 			System.out.println("------------------");
 			System.out.println("원하시는 메뉴를 선택해 주세요.");
@@ -37,10 +36,10 @@ public class SystemStart {
 					}case 2:{
 						EmployeeManagements e = new EmployeeManagements();
 						e.employeeList();
-						
-			
 						break; // 2번 직원 관리 실행
 					}case 3:{
+						CustomerManagements e = new CustomerManagements();
+						e.customerList();
 						break; // 3번 고객 관리 실행
 					}case 4:{
 						break; // 4번 영화관 관리
@@ -50,8 +49,8 @@ public class SystemStart {
 			}
 			catch(Exception e) {
 				e.printStackTrace();
-				System.out.println("\n숫자를 다시 입력해주세요\n");
+				System.out.println("\n 53 systemStart n숫자를 다시 입력해주세요\n");
 			}
 		}	
-	}
+	} 
 }

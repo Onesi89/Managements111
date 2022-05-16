@@ -72,9 +72,8 @@ public class EmployeeManagements{
 					System.out.print(("선택 : "));
 					
 					sc = new Scanner(System.in);
-					int a = sc.nextInt();
 
-					switch (a) {
+					switch (sc.nextInt()) {
 					case 1: {
 						System.out.println("------------------------------------");
 						this.employeeAdd();
@@ -106,9 +105,9 @@ public class EmployeeManagements{
 					}
 				}
 			} catch (InputMismatchException e) {
-				System.out.println("! 109 번호를 다시 입력해주세요 , 처음으로 갑니다.");
+				System.out.println("! 108 번호를 다시 입력해주세요 , 처음으로 갑니다.");
 			} catch (IOException e) {
-				System.out.println("!111번호를 다시 입력해주세요 , 처음으로 갑니다.");
+				System.out.println("!110 입출력 파일에 오류가 있습니다. 확인 해주세요.");
 			}
 		}
 	}
@@ -144,16 +143,16 @@ public class EmployeeManagements{
 					}
 					break out;
 				} else if (a.equals("n")) {
-					System.out.println("! 159 잘못 입력하였습니다. 처음으로 돌아갑니다.");
+					System.out.println("! 146 잘못 입력하였습니다. 처음으로 돌아갑니다.");
 					employeeList();
 				} else {
 					System.out.println("다시 입력해주세요(y/n)");
 				}
 
 			} catch (IOException e) {
-				System.out.println("! 156 처음으로 돌아갑니다.");
+				System.out.println("! 153 처음으로 돌아갑니다.");
 			} catch (InputMismatchException e) {
-				System.out.println("! 159 처음으로 돌아갑니다.");
+				System.out.println("! 155 처음으로 돌아갑니다.");
 			}
 
 		}
@@ -214,11 +213,11 @@ public class EmployeeManagements{
 				}
 			} else {
 				System.out.println("------------------------------------");
-				System.out.println("! 217 취소 되었습니다. 직원리스트로 돌아갑니다.");
+				System.out.println("! 216 취소 되었습니다. 직원리스트로 돌아갑니다.");
 			}
 		} else {
 			System.out.println("------------------------------------");
-			System.out.println("! 221 취소 되었습니다. 직원 리스트로 돌아갑니다.");
+			System.out.println("! 220 취소 되었습니다. 직원 리스트로 돌아갑니다.");
 		}
 	}
 }	
