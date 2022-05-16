@@ -1,10 +1,14 @@
 package SystemManagements;
 
-public class Employee {
-	private String name; // 직원 이름
-	private String phoneNumber; // 직원 폰넘버
-	private String joinDate; // 직원 입사일
-	private 
-	
+import java.io.File;
+import java.util.List;
+import java.util.Scanner;
 
+public class Employee {
+	private String name;
+	private String phoneNumber;
+	private String duty;
+	private String joinDate;
+	private File path;
+	public Scanner sc;
 }
