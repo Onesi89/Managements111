@@ -158,28 +158,26 @@ public class EmployeeManagements{
 		}
 	}
 
-	public void employeeDelete() throws InputMismatchException{ //삭제
+	public void employeeDelete() throws InputMismatchException, IOException, NumberFormatException { // 삭제
 		System.out.println("삭제할 번호를 선택하세요");
 		int number = sc.nextInt() - 1;
 		System.out.println("정말 삭제하시겠습니까?(y/n) 복구가 불가능합니다.");
 		String a = sc.next();
 		if (a.equals("y")) {
 			emList.remove(number);
-			try (Writer os = new FileWriter(path); // 덮어쓰기
-					BufferedWriter bos = new BufferedWriter(os);) {
-				for (EmployeeManagements e : emList) {
-					bos.write(e.name + " ");
-					bos.write(e.phoneNumber + " ");
-					bos.write(e.duty + " ");
-					bos.write(e.joinDate);
-				}
-
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.out.println(e);
+			Writer os = new FileWriter(path); // 덮어쓰기
+			BufferedWriter bos = new BufferedWriter(os);
+			for (EmployeeManagements e : emList) {
+				bos.write(e.name + " ");
+				bos.write(e.phoneNumber + " ");
+				bos.write(e.duty + " ");
+				bos.write(e.joinDate);
+				bos.newLine();
 			}
-		} else
-			throw new InputMismatchException();
+			bos.close();
+		} else {
+			System.out.println("!178 취소되었습니다. 처음으로 돌아갑니다.");
+		}
 
 	}
 
@@ -201,23 +199,24 @@ public class EmployeeManagements{
 			EmployeeManagements b = new EmployeeManagements(name, phoneNumber, duty, joinDate);
 
 			if (sc.next().equals("y")) {
-				try (Writer os = new FileWriter(path); BufferedWriter bos = new BufferedWriter(os);) {
+					Writer os = new FileWriter(path); 
+					BufferedWriter bos = new BufferedWriter(os);
 					emList.set(number, b);
 					for (EmployeeManagements e : emList) {
 						bos.write(e.name + " ");
 						bos.write(e.phoneNumber + " ");
 						bos.write(e.duty + " ");
 						bos.write(e.joinDate);
-						bos.newLine();
+						bos.newLine();	
 					}
-				}
+					bos.close();
 			} else {
 				System.out.println("------------------------------------");
-				System.out.println("! 216 취소 되었습니다. 직원리스트로 돌아갑니다.");
+				System.out.println("! 213 취소 되었습니다. 직원리스트로 돌아갑니다.");
 			}
 		} else {
 			System.out.println("------------------------------------");
-			System.out.println("! 220 취소 되었습니다. 직원 리스트로 돌아갑니다.");
+			System.out.println("! 217 취소 되었습니다. 직원 리스트로 돌아갑니다.");
 		}
 	}
 }	
