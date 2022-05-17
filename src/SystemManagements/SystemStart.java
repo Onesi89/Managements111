@@ -2,6 +2,8 @@ package SystemManagements;
 
 import java.util.Scanner;
 
+import login.Login;
+
 public class SystemStart {
 	
 	private static SystemStart instance = new SystemStart();
@@ -36,7 +38,7 @@ public class SystemStart {
 			try{selNumber = scanStart.nextInt();// 번호를 잘 못 입력하였을 경우 오류 메세지 출력
 				scanStart.nextLine();
 				if((selNumber<1) || (selNumber>5)) {
-					throw new Exception();
+						systemStart();
 				}else {
 					switch(selNumber) {
 					case 1:{				
@@ -51,7 +53,10 @@ public class SystemStart {
 						break; // 3번 고객 관리 실행
 					}case 4:{
 						break; // 4번 영화관 관리
-					}default :
+					}case 5 :{ Login.getInstance().main(null);;
+								break;
+						
+					}
 					}
 				}
 			}
@@ -59,6 +64,6 @@ public class SystemStart {
 				e.printStackTrace();
 				System.out.println("\n 53 systemStart n숫자를 다시 입력해주세요\n");
 			}
-		}	
-	} 
+			}
+		}
 }
