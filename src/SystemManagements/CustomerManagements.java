@@ -20,8 +20,7 @@ public class CustomerManagements {
 	private String mEmail; //이메일
 	private String mGrade; //회원등급
 	private String mPoint; //포인트
-	
-	private List<CustomerManagements> cList; // 고객정보 객체 리스트 저장
+	private List<CustomerManagements> cList; // 고객정보 객체 리스트 저장 -> 문제가 있을런지 확인
 	private File path; // 파일 경로
 	public Scanner sc;
 	
@@ -41,13 +40,13 @@ public class CustomerManagements {
 			System.out.println("------------------------------------");
 			System.out.println("   고객 관리 창입니다.");
 			System.out.println("------------------------------------");      
-//			System.out.println("순번 아이디        비밀번호          이름      생년월일               주소                  전화번호               이메일주소                   등급       포인트");
 			cList = new ArrayList<CustomerManagements>();
 			String line = null;
 			
 			while((line = br.readLine()) != null) {
 				String[] abc = line.split("■");
 				CustomerManagements test = new CustomerManagements();
+				
 				test.mId = abc[1];
 				test.mPwd = abc[2];
 				test.mName = abc[3];
@@ -65,10 +64,10 @@ public class CustomerManagements {
 			System.out.println("3. 전화번호");
 			System.out.println("4. 등급");
 			
-			for(int i = 0; i<10; i++) {
+		/*	for(int i = 0; i<10; i++) { 전체리스트 확인
 				print(i);
 				System.out.println();
-			}
+			} */
 			
 			switch(sc.nextInt()) {
 			case 1:
@@ -86,7 +85,7 @@ public class CustomerManagements {
 		catch(IOException e) {System.out.println("73번 오류");}
 		
 	}
-	
+	// 요부분 수정하고 싶다.
 	void searchID() {
 		System.out.println("입력해주세요.");
 		sc = new Scanner(System.in);
@@ -96,7 +95,7 @@ public class CustomerManagements {
 			if(a.equals(cList.get(i).mId)) {			
 				print(i);	}
 
-			else {	}                             
+			else {System.out.println("잘못 입력하셨습니다. 처음으로 돌아갑니다");}                             
 			}                                 
 		}                                     
 
@@ -109,7 +108,7 @@ public class CustomerManagements {
 			if(a.equals(cList.get(i).mName)) {			
 				print(i);	}
 
-			else {	}                             
+			else {}                             
 			}                                 
 		}     
 	
@@ -135,9 +134,7 @@ public class CustomerManagements {
 				print(i);}                            
 			}                                 
 		} 
-	
-	
-	
+
 	void print(int i) {
 		System.out.print((i+"  "));
 		System.out.print(cList.get(i).mId+"   ");
@@ -151,6 +148,6 @@ public class CustomerManagements {
 		System.out.print(cList.get(i).mPoint+"   ");
 		System.out.println();
 	}
-	}
+}
 
  
