@@ -96,8 +96,8 @@ public class EmployeeManagements{
 
 					case 4: {
 						System.out.println("------------------------------------");
-						SystemStart start = new SystemStart();
-						start.systemStart();
+						SystemStart startEXE = SystemStart.getInstance();
+						startEXE.systemStart();
 						break;
 					}
 					default: {

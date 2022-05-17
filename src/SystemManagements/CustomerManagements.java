@@ -1,10 +1,13 @@
 package SystemManagements;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -33,9 +36,11 @@ public class CustomerManagements {
 	}
 	
 	void  customerList() {
-//		for(long i = 0 ; i < 1000000000 ; i++) {} //시간 지연
+		while (true) {
+		
 		try(Reader r = new FileReader(path);
 			BufferedReader br = new BufferedReader(r);){
+			for(long i = 0 ; i < 1000000000 ; i++) {} //시간 지연
 			sc = new Scanner(System.in);
 			System.out.println("------------------------------------");
 			System.out.println("   고객 관리 창입니다.");
@@ -59,84 +64,138 @@ public class CustomerManagements {
 				cList.add(test);	
 			}
 			System.out.println("검색할 항목을 선택해주세요.");
+			System.out.println("------------------------------------"); 
 			System.out.println("1. 아이디");
 			System.out.println("2. 성함");
 			System.out.println("3. 전화번호");
 			System.out.println("4. 등급");
+			System.out.println("5. 뒤로가기");
+			System.out.println("------------------------------------"); 
+			System.out.print("선택: ");
 			
-		/*	for(int i = 0; i<10; i++) { 전체리스트 확인
-				print(i);
-				System.out.println();
-			} */
+//			for(int i = 0; i<10; i++) { //전체리스트 확인
+//				print(i);
+//			} 
 			
 			switch(sc.nextInt()) {
 			case 1:
-			{searchID();}
+			{searchID(); break;}
 			case 2:
-			{searchName();}
+			{searchName(); break;}
 			case 3:
-			{searchPhone();}
+			{searchPhone(); break;}
 			case 4:
-			{searchGrade();}	
-			
+			{searchGrade(); break;}
+			case 5:
+			{SystemStart startEXE = SystemStart.getInstance();
+			startEXE.systemStart();}
 			}
-			
-		}catch(InputMismatchException e) {System.out.println("72번 오류");}
-		catch(IOException e) {System.out.println("73번 오류");}
-		
+		}catch(InputMismatchException e) {System.out.println("72번 오류 고객관리로 돌아갑니다.");}
+		catch(IOException e) {System.out.println("73번 오류 고객관리로 돌아갑니다.");}
+		}	
 	}
 	// 요부분 수정하고 싶다.
 	void searchID() {
-		System.out.println("입력해주세요.");
+		System.out.println("------------------------------------");
+		System.out.println("검색할 ID를 입력해주세요.");
 		sc = new Scanner(System.in);
 		String a = sc.next();
-		System.out.println("순번 아이디        비밀번호          이름      생년월일               주소                  전화번호               이메일주소                   등급       포인트");
-		for(int i = 0 ; i<cList.size();i++) {
-			if(a.equals(cList.get(i).mId)) {			
-				print(i);	}
-
-			else {System.out.println("잘못 입력하셨습니다. 처음으로 돌아갑니다");}                             
-			}                                 
-		}                                     
+		int count = 0;
+		out: for (int i = 0; i < cList.size(); i++) {
+			if (a.equals(cList.get(i).mId)) {
+				System.out.println(
+						"순번 아이디        비밀번호          이름      생년월일               주소                  전화번호               이메일주소                   등급       포인트");
+				count++;
+				print(i);
+				break out;
+			}
+		}
+		if (count != 0)
+			printEdit();
+		else {
+			System.out.println("\n잘못 입력하였습니다. 고객관리로 이동합니다.");
+			customerList();
+		}
+	}
 
 	void searchName() {
-		System.out.println("입력해주세요.");
+		System.out.println("------------------------------------");
+		System.out.println("검색할 이름을 입력해주세요.");
+		System.out.println("------------------------------------");
 		sc = new Scanner(System.in);
 		String a = sc.next();
-		System.out.println("순번 아이디        비밀번호          이름      생년월일               주소                  전화번호               이메일주소                   등급       포인트");
-		for(int i = 0 ; i<cList.size();i++) {
-			if(a.equals(cList.get(i).mName)) {			
-				print(i);	}
+		int count = 0;
 
-			else {}                             
-			}                                 
-		}     
-	
+		System.out.println(
+				"순번 아이디        비밀번호          이름      생년월일               주소                  전화번호               이메일주소                   등급       포인트");
+
+		for (int i = 0; i < cList.size(); i++) {
+			if (a.equals(cList.get(i).mName)) {
+				count++;
+				print(i);
+			}
+		}
+		if (count != 0)
+			printEdit();
+		else {
+			System.out.println("\n잘못 입력하였습니다. 고객관리로 이동합니다.");
+		}
+		customerList();
+	}
+
 	void searchPhone() {
-		System.out.println("입력해주세요.");
+		System.out.println("------------------------------------");
+		System.out.println("검색할 핸드폰번호를 입력해주세요.");
+		System.out.println("------------------------------------");
 		sc = new Scanner(System.in);
 		String a = sc.next();
-		System.out.println("순번 아이디        비밀번호          이름      생년월일               주소                  전화번호               이메일주소                   등급       포인트");
-		for(int i = 0 ; i<cList.size();i++) {
-			if(a.equals(cList.get(i).mPhone)) {			
-				print(i);	}
+		int count = 0;
 
-			else {	}                             
-			}                                 
-		} 
+		System.out.println(
+				"순번 아이디        비밀번호          이름      생년월일               주소                  전화번호               이메일주소                   등급       포인트");
+
+		for (int i = 0; i < cList.size(); i++) {
+			if (a.equals(cList.get(i).mPhone)) {
+				count++;
+				print(i);
+			}
+		}
+		if (count != 0)
+			printEdit();
+		else {
+			System.out.println("\n잘못 입력하였습니다. 고객관리로 이동합니다.");
+		}
+		customerList();
+	}
+
 	void searchGrade() {
-		System.out.println("입력해주세요.");
+		System.out.println("------------------------------------");
+		System.out.println("검색할 등급을 입력해주세요.");
+		System.out.println("------------------------------------");
+		
 		sc = new Scanner(System.in);
 		String a = sc.next();
-		System.out.println("순번 아이디        비밀번호          이름      생년월일               주소                  전화번호               이메일주소                   등급       포인트");
-		for(int i = 0 ; i<cList.size();i++) {
-			if(a.equals(cList.get(i).mGrade)) {			
-				print(i);}                            
-			}                                 
-		} 
+		int count = 0;
+
+		System.out.println(
+				"순번 아이디        비밀번호          이름      생년월일               주소                  전화번호               이메일주소                   등급       포인트");
+
+		for (int i = 0; i < cList.size(); i++) {
+			if (a.equals(cList.get(i).mGrade)) {
+				count++;
+				print(i);
+			}
+		}
+		if (count != 0)
+			printEdit();
+		else {
+			System.out.println("\n잘못 입력하였습니다. 고객관리로 이동합니다.");
+		}
+		customerList();
+	}
 
 	void print(int i) {
-		System.out.print((i+"  "));
+		System.out.print((i+1)+"  ");
 		System.out.print(cList.get(i).mId+"   ");
 		System.out.print(cList.get(i).mPwd+"    ");
 		System.out.print(cList.get(i).mName+"    " );
@@ -147,6 +206,87 @@ public class CustomerManagements {
 		System.out.print(cList.get(i).mGrade+"    ");
 		System.out.print(cList.get(i).mPoint+"   ");
 		System.out.println();
+
+	}
+	void printEdit() {
+		System.out.println("------------------------------------");
+		System.out.println("수정할 회원 번호를 선택해주세요. 뒤로가려면 숫자 0을 입력해주세요.");
+		System.out.print("선택 : ");
+		sc = new Scanner(System.in);
+		int number = sc.nextInt();
+		try {
+		if(number == 0) {System.out.println("처음으로 돌아갑니다.");
+			customerList();}
+		else if(cList.get(number-1)==null) {
+			System.out.println("처음으로 돌아갑니다.");
+			customerList();
+		}}catch(IndexOutOfBoundsException e) {System.out.println("인덱스 오류");}
+
+		System.out.println("아래의 번호 중 하나를 선택해주세요.");
+		System.out.println("1. 회원 수정");
+		System.out.println("2. 회원 삭제");
+		System.out.println("3. 뒤로 가기");
+		System.out.print("선택 :");
+		number--;
+		
+		
+		switch(sc.nextInt()) {
+		case 1:{new CustomerEdit().edit(); break;}
+		case 2:{new CustomerEdit().delete(number); 
+				new CustomerEdit().delWrite(cList);
+				break;}
+		case 3:{printEdit();}
+	}
+	}
+	
+	private class CustomerEdit{
+		private List<CustomerManagements> delete(int number){
+			sc = new Scanner(System.in);
+			System.out.println("!!!!!! cList 사이즈 :" + cList.size());
+			System.out.println("정말 삭제하시겠습니까?(y/n)");
+			if(sc.next().equals("y")) {
+				cList.remove(number);
+				return cList;
+				
+			}else return cList;
+		};
+		
+		private void delWrite(List<CustomerManagements> list) {
+
+			try (Writer os = new FileWriter(path); // 덮어쓰기
+					BufferedWriter bos = new BufferedWriter(os);) {
+				int count = 1;
+				for (CustomerManagements e : cList) {
+					bos.write(String.valueOf(count++));
+					bos.write("■");
+					bos.write(e.mId);
+					bos.write("■");
+					bos.write(e.mPwd);
+					bos.write("■");
+					bos.write(e.mName);
+					bos.write("■");
+					bos.write(e.mBirth);
+					bos.write("■");
+					bos.write(e.mAdress);
+					bos.write("■");
+					bos.write(e.mPhone);
+					bos.write("■");
+					bos.write(e.mEmail);
+					bos.write("■");
+					bos.write(e.mGrade);
+					bos.write("■");
+					bos.write(e.mPoint);
+					bos.newLine();
+				}
+
+			} catch (IOException e) {System.out.println("278번줄 오류");
+			}
+
+		}
+		
+		private void edit() {};
+		
+		
 	}
 }
 
