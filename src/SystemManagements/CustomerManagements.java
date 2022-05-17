@@ -26,7 +26,7 @@ public class CustomerManagements {
 	private List<CustomerManagements> cList; // 고객정보 객체 리스트 저장 -> 문제가 있을런지 확인
 	private File path; // 파일 경로
 	public Scanner sc;
-	public String str = "순번 아이디               비밀번호             이름      생년월일                     주소                  전화번호               이메일주소                             등급       포인트";
+	public String str = "------------------------------------\n순번 아이디               비밀번호             이름      생년월일                     주소                  전화번호               이메일주소                             등급       포인트";
 	
 	CustomerManagements() throws IOException {
 		File path1 = new File("data"); 
@@ -36,7 +36,7 @@ public class CustomerManagements {
 		sc = new Scanner(System.in);
 	}
 	
-	void  customerList() { //고객관리 메인화면
+	void customerList() { //고객관리 메인화면
 		while (true) {
 		
 		try(Reader r = new FileReader(path);

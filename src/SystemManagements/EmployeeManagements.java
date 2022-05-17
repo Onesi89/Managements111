@@ -19,7 +19,7 @@ public class EmployeeManagements{
 	private String duty;
 	private String joinDate;
 	private List<EmployeeManagements> emList;
-	private File path;
+	public File path;
 	public Scanner sc;
 	
 
@@ -165,16 +165,7 @@ public class EmployeeManagements{
 		String a = sc.next();
 		if (a.equals("y")) {
 			emList.remove(number);
-			Writer os = new FileWriter(path); // 덮어쓰기
-			BufferedWriter bos = new BufferedWriter(os);
-			for (EmployeeManagements e : emList) {
-				bos.write(e.name + " ");
-				bos.write(e.phoneNumber + " ");
-				bos.write(e.duty + " ");
-				bos.write(e.joinDate);
-				bos.newLine();
-			}
-			bos.close();
+			editWrite();
 		} else {
 			System.out.println("!178 취소되었습니다. 처음으로 돌아갑니다.");
 		}
@@ -199,17 +190,8 @@ public class EmployeeManagements{
 			EmployeeManagements b = new EmployeeManagements(name, phoneNumber, duty, joinDate);
 
 			if (sc.next().equals("y")) {
-					Writer os = new FileWriter(path); 
-					BufferedWriter bos = new BufferedWriter(os);
-					emList.set(number, b);
-					for (EmployeeManagements e : emList) {
-						bos.write(e.name + " ");
-						bos.write(e.phoneNumber + " ");
-						bos.write(e.duty + " ");
-						bos.write(e.joinDate);
-						bos.newLine();	
-					}
-					bos.close();
+				emList.set(number, b);
+				editWrite();
 			} else {
 				System.out.println("------------------------------------");
 				System.out.println("! 213 취소 되었습니다. 직원리스트로 돌아갑니다.");
@@ -218,5 +200,18 @@ public class EmployeeManagements{
 			System.out.println("------------------------------------");
 			System.out.println("! 217 취소 되었습니다. 직원 리스트로 돌아갑니다.");
 		}
+	}
+	// 코드 줄임용
+	private void editWrite() throws InputMismatchException, IOException, NumberFormatException {
+		Writer os = new FileWriter(path); 
+		BufferedWriter bos = new BufferedWriter(os);
+		for (EmployeeManagements e : emList) {
+			bos.write(e.name + " ");
+			bos.write(e.phoneNumber + " ");
+			bos.write(e.duty + " ");
+			bos.write(e.joinDate);
+			bos.newLine();	
+		}
+		bos.close();
 	}
 }	
