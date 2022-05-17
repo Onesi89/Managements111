@@ -3,9 +3,17 @@ package SystemManagements;
 import java.util.Scanner;
 
 public class SystemStart {
+	
+	private static SystemStart instance = new SystemStart();
+	private SystemStart(){}
+	public static SystemStart getInstance() {
+		return instance;
+	} // 싱글톤 사용
+	
+
 	public static void main(String[] args) {
-		SystemStart a = new SystemStart();
-		a.systemStart();
+		SystemStart startEXE = SystemStart.getInstance();
+		startEXE.systemStart();
 	}
 	
 	public void systemStart(){	
