@@ -13,29 +13,34 @@ public class Login {
 	public static Login getInstance() {
 		return instance;} //싱글톤
 
-	
+	//처음 실행  메인메소드
 	public static void main(String[] args) {
-		Login startLoin = Login.getInstance();
-		Login.systemStart();
+		Login loginStart = Login.getInstance();
+		loginStart.systemStart();
 		}
 		
-	
-	public static void systemStart() {
+	// 실제로 실행되는 메소드, 회원 / 관리자 분기점
+	public void systemStart() {
 		while (true) {
 			System.out.println("-----------------");
-			System.out.println("회원 / 관리자 \n로그인 ");
+			System.out.println("회원 / 관리자 로그인 ");
+			System.out.println("-----------------");
 			System.out.println("1. 회원");
 			System.out.println("2. 관리자");
+			System.out.println("3. 시스템 종료");
 			System.out.print("선택 : ");
 
-
+			
 			try {
+			
 				Scanner sc = new Scanner(System.in);
 				switch (sc.nextInt()) {
-				case 1: { // 회원 로그인 -- 받아야함
+				// 회원 로그인
+				case 1: { 
 					break;
 				}
-				case 2: {
+				// 관리자
+				case 2: { 
 					if (AdminLogin.adminLogin()) {
 						SystemStart.getInstance().systemStart();
 					} else {
@@ -43,7 +48,9 @@ public class Login {
 					}
 					break;
 				}
-				case 3: { // 시스템 종료
+				
+				// 시스템 종료
+				case 3: { 
 					System.out.println("시스템 종료");
 					System.exit(0);
 				}

@@ -45,7 +45,7 @@ public class SystemStart {
 						break; // 1번 매출 관리 실행
 					}case 2:{
 						EmployeeManagements e = new EmployeeManagements();
-						e.employeeList();
+						e.listCall();
 						break; // 2번 직원 관리 실행
 					}case 3:{
 						CustomerManagements e = new CustomerManagements();
@@ -53,8 +53,10 @@ public class SystemStart {
 						break; // 3번 고객 관리 실행
 					}case 4:{
 						break; // 4번 영화관 관리
-					}case 5 :{ Login.getInstance().main(null);;
-								break;
+					}case 5 :{ 
+						Login loginStart = Login.getInstance();
+						loginStart.systemStart();
+						break;
 						
 					}
 					}

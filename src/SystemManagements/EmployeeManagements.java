@@ -13,7 +13,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class EmployeeManagements{
+public class EmployeeManagements implements interfaceList.HumanInfoEditable{
 	private String name;
 	private String phoneNumber;
 	private String duty;
@@ -39,7 +39,8 @@ public class EmployeeManagements{
 		path = new File("data/employee.txt");
 		sc = new Scanner(System.in);
 	}
-	public void employeeList() {
+	@Override
+	public void listCall() {
 		while (true) {
 			try (Reader r = new FileReader(path); BufferedReader br = new BufferedReader(r);) {
 				for(long i = 0 ; i < 1000000000 ; i++) {} //시간 지연
@@ -76,21 +77,21 @@ public class EmployeeManagements{
 					switch (sc.nextInt()) {
 					case 1: {
 						System.out.println("------------------------------------");
-						this.employeeAdd();
-						employeeList();
+						this.addToList();
+						listCall();
 						break;
 					}
 					case 2: {
 						System.out.println("------------------------------------");
-						this.employeeDelete();
-						employeeList();
+						this.delFromList();
+						listCall();;
 						break;
 
 					}
 					case 3: {
 						System.out.println("------------------------------------");
 						this.employeeEdit();
-						employeeList();
+						listCall();
 						break;
 					}
 
@@ -111,8 +112,9 @@ public class EmployeeManagements{
 			}
 		}
 	}
-
-	public void employeeAdd() { //추가
+	
+	@Override
+	public void addToList() { //추가
 		emList = new ArrayList<EmployeeManagements>();
 		
 		System.out.println("이름을 입력하세요.");
@@ -144,7 +146,7 @@ public class EmployeeManagements{
 					break out;
 				} else if (a.equals("n")) {
 					System.out.println("! 146 잘못 입력하였습니다. 처음으로 돌아갑니다.");
-					employeeList();
+					listCall();
 				} else {
 					System.out.println("다시 입력해주세요(y/n)");
 				}
@@ -157,15 +159,15 @@ public class EmployeeManagements{
 
 		}
 	}
-
-	public void employeeDelete() throws InputMismatchException, IOException, NumberFormatException { // 삭제
+	@Override
+	public void delFromList() throws InputMismatchException, IOException, NumberFormatException { // 삭제
 		System.out.println("삭제할 번호를 선택하세요");
 		int number = sc.nextInt() - 1;
 		System.out.println("정말 삭제하시겠습니까?(y/n) 복구가 불가능합니다.");
 		String a = sc.next();
 		if (a.equals("y")) {
 			emList.remove(number);
-			editWrite();
+			listWrite(false);
 		} else {
 			System.out.println("!178 취소되었습니다. 처음으로 돌아갑니다.");
 		}
@@ -191,7 +193,7 @@ public class EmployeeManagements{
 
 			if (sc.next().equals("y")) {
 				emList.set(number, b);
-				editWrite();
+				listWrite(false);
 			} else {
 				System.out.println("------------------------------------");
 				System.out.println("! 213 취소 되었습니다. 직원리스트로 돌아갑니다.");
@@ -202,8 +204,9 @@ public class EmployeeManagements{
 		}
 	}
 	// 코드 줄임용
-	private void editWrite() throws InputMismatchException, IOException, NumberFormatException {
-		Writer os = new FileWriter(path); 
+	@Override
+	public void listWrite(boolean tureOrFalse) throws InputMismatchException, IOException, NumberFormatException {
+		Writer os = new FileWriter(path,tureOrFalse); 
 		BufferedWriter bos = new BufferedWriter(os);
 		for (EmployeeManagements e : emList) {
 			bos.write(e.name + " ");

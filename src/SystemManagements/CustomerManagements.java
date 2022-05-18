@@ -50,7 +50,7 @@ public class CustomerManagements {
 			String line = null;
 			
 			while((line = br.readLine()) != null) {
-				String[] abc = line.split("■");
+				String[] abc = line.split("■"); //구분자 제거 [1,2,3,4,5,6...]
 				CustomerManagements test = new CustomerManagements();
 				
 				test.mId = abc[1];
@@ -158,8 +158,9 @@ public class CustomerManagements {
 		}
 		customerList();
 	}
-
-	void searchGrade() { //등급 검색
+	
+	//등급 검색
+	void searchGrade() { 
 		System.out.println("------------------------------------");
 		System.out.println("검색할 등급을 입력해주세요.");
 		System.out.println("------------------------------------");

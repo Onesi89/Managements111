@@ -14,18 +14,21 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AdminLogin {
+	//필드 맴버변수, 읽을 파일 경로
 	static File path1 = new File("data");
 	static File path = new File("data/adminInfo.txt");
-
-	private class AdminInfo { //이너 클래스
+	
+	// ---------------------이너 클래스 시작
+	private class AdminInfo implements interfaceList.HumanInfoEditable {
 		Scanner sc;
 		String adminID; // 어드민 아이디
 		String adminPW; // 어드민 패스워드
 		String adminName; // 어드민 네임
 		String adminPhone; // 어드민 폰넘버
 		String adminDuty; // 어드민 직급
-		List<AdminLogin.AdminInfo> list = new ArrayList<AdminLogin.AdminInfo>();
-
+		List<AdminInfo> list = new ArrayList<AdminInfo>();
+		
+		//맴버 기본 정보 생성자
 		AdminInfo(String adminID, String adminPW, String adminName, String adminPhone, String adminDuty) {
 			this.adminID = adminID;
 			this.adminPW = adminPW; 
@@ -34,38 +37,41 @@ public class AdminLogin {
 			this.adminDuty = adminDuty;
 		}
 		
+		//맴버 생성자
 		AdminInfo(){}
-		void adminList() {
-			System.out.println("------------------------------------");
-			System.out.println("  관리자창입니다.");
-			System.out.println("------------------------------------");
-			listCall();
-			}
-		
-		void listCall() { //직원 목록 부르기
+
+		//직원 목록 부르기
+		@Override
+		public void listCall(){ 
 			try (Reader r = new FileReader(path); BufferedReader br = new BufferedReader(r);) {
-				for(long i = 0 ; i < 1000000000 ; i++) {} //시간 지연
-				System.out.print("순번    이름\t     핸드폰번호          직무     입사일\n");
+//				for(long i = 0 ; i < 1000000000 ; i++) {} //시간 지연
+				System.out.print("순번     이름\t      핸드폰번호           직무      입사일\n");
 				
 				String line = null; // line 초기화
+				list.clear(); // 혹시모를 꼬임 방지 리스트 초기화
+				int i = 1; // i 초기화
 				
-				int i = 0; // i 초기화
 				while ((line = br.readLine()) != null) {
-					System.out.println((i + 1) + "   " + line);
-					i++;
+					System.out.println((i++) + "   " + line); //출력
 					String[] abc = line.split(" ");
-					AdminLogin.AdminInfo test = new AdminInfo(abc[0], abc[1], abc[2], abc[3], abc[4]);
+					AdminInfo test = new AdminInfo(abc[0], abc[1], abc[2], abc[3], abc[4]);
+				
 					list.add(test);
 					}
+				
 				}catch(IOException e) {System.out.println("오류랄까");}}
 		
-			
-		void addAdmin() throws InputMismatchException, IOException, NumberFormatException {
+		// 관리자 추가	
+		@Override
+		public void addToList() throws InputMismatchException, NumberFormatException, IOException {
 			sc = new Scanner(System.in);
 			AdminInfo a = new AdminInfo();
-			List<AdminLogin.AdminInfo> list1 = new ArrayList<AdminLogin.AdminInfo>();
+			System.out.println("기존 리스트입니다.");
+			System.out.println("-------------------------"); // 구분선
+			listCall(); //기존 리스트 불러오기
+			System.out.println("-------------------------"); // 구분선
 			
-			
+			//신규 확인
 			System.out.println("아이디를 입력해주세요.");
 			a.adminID = sc.next();
 			System.out.println("패스워드를 입력해주세요.");
@@ -77,54 +83,90 @@ public class AdminLogin {
 			System.out.println("직급을 입력해주세요");
 			a.adminDuty = sc.next();
 			System.out.println("저장하시겠습니까(y/n)");
-			if(sc.next().equals("n")) {adminLogin();}
 			
-			list1.add(a);
+			if (!(sc.next().equals("y"))) {
+				System.out.println("취소 및 잘못입력하였습니다. 처음으로 돌아갑니다.");
+				adminLogin();
+			}
 			
-			listCall();
-			
-			for(int i= 0; i<list.size() ; i++) {
-				if(list.get(i).adminID.equals(a.adminID)) {
-					System.out.println("아이디가 중복되었습니다. 확인부탁드립니다.");
-					adminLogin();
+			int j = 0;
+			for (int i = 0; i < list.size(); i++) { // 아이디 중복 
+				if (list.get(i).adminID.equals(a.adminID)) {
+					System.out.println("아이디가 중복되었습니다. 아이디를 확인해주세요.");
+					j++;
 					break;
 				}
 			}
-			list.addAll(list1);
+
+			if(j == 0) {
+				list.add(a); // 기존 리스트에 추가
+				listWrite(false); // txt 파일에 덮어쓰기
+			}else addToList();
+
+			
+		};
+		
+		//관리자  삭제
+		@Override
+		public void delFromList () throws InputMismatchException, NumberFormatException, IOException {
 			
 			
-			System.out.println();
-			Writer os = new FileWriter(path,true); 
+			listCall(); // 기존 리스트 부르기
+			
+			sc = new Scanner(System.in); //입력받을 스캐너 실행
+			System.out.println("삭제하실 번호를 선택해주세요.");
+			int number = sc.nextInt() - 1; //리스트 인덱스 번호 입력 받기
+			
+			if((number > -1) && number < list.size()) {
+				list.remove(number);
+				listWrite(false); //txt 파일에 덮어 쓰기
+				System.out.println("삭제되었습니다. 처음으로 돌아갑니다.");
+				adminLogin();
+			}else {
+				System.out.println("잘못 입력하였습니다. 처음으로 돌아갑니다.");
+				adminLogin();
+			}
+		};
+		
+		//파일에 덮어쓰기
+		@Override
+		public void listWrite(boolean trueOrFalse) throws InputMismatchException, NumberFormatException, IOException {
+			sc = new Scanner(System.in);
+			Writer os = new FileWriter(path,trueOrFalse);
 			BufferedWriter bos = new BufferedWriter(os);
 			for (AdminInfo e : list) {
-				bos.write(e.adminID + " " );
+				bos.write(e.adminID + " ");
 				bos.write(e.adminPW + " ");
 				bos.write(e.adminName + " ");
 				bos.write(e.adminPhone + " ");
-				bos.write(e.adminDuty + " ");
-				bos.newLine();	
+				bos.write(e.adminDuty);
+				bos.newLine();
 			}
-			bos.close();};	
-			
-		void delAdmin() throws InputMismatchException, IOException, NumberFormatException {
-				editWrite();
-		};
-		void editWrite() throws InputMismatchException, IOException, NumberFormatException {
-		sc = new Scanner(System.in);
-		list = new ArrayList<AdminLogin.AdminInfo>();
-		Writer os = new FileWriter(path); 
-		BufferedWriter bos = new BufferedWriter(os);
-		for (AdminInfo e : list) {
-			bos.write(e.adminID + " " );
-			bos.write(e.adminPW + " ");
-			bos.write(e.adminName + " ");
-			bos.write(e.adminDuty + " ");
-			bos.newLine();	
+			bos.close();
 		}
-		bos.close();};
-	}
-
+		
+		@Override
+		public boolean equals(Object obj) {
+			if (obj instanceof AdminInfo) {
+				if (this.adminID == ((AdminInfo) obj).adminID)
+					return true;
+			}
+			return false;
+		}
+}
+	// ---------------------이너 클래스 끝
+	
+	// 관리자 기본 화면
 	public static boolean adminLogin() throws IOException {
+		System.out.println("-------------------------"); // 구분선
+		
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		AdminLogin adminLogin = new AdminLogin();
 		Scanner sc = new Scanner(System.in);
 		// 아래의 경로가 없으면 생성해라.
@@ -135,13 +177,35 @@ public class AdminLogin {
 		if (!(path.exists())) {
 			path.createNewFile();
 		}
-		System.out.println("1. 기존 아이디 로그인  2. 관리자 추가");
+		System.out.println("1. 기존 아이디 로그인  2. 관리자 추가 3. 관리자 삭제 4.뒤로가기" );
 		int number = sc.nextInt();
-		if(number == 2) {
-			AdminLogin.AdminInfo adminInfo = adminLogin.new AdminInfo();
-			adminInfo.addAdmin();
+		
+		AdminLogin.AdminInfo adminInfo = adminLogin.new AdminInfo();
+		
+		switch(number) {
+		case 2:{
+			adminInfo.addToList();
+			adminLogin();
+			break;
+			
+		}case 3:{
+			adminInfo.delFromList();
+			adminLogin();
+			break;
+			
+		}case 4:{
+			Login loginStart = Login.getInstance();
+			loginStart.systemStart();
+			break;
+		}case 1:{
+			break;
+			
+		}default :{
+			System.out.println("번호를 잘못 입력하셨습니다. 처음으로 돌아갑니다.");
 			adminLogin();
 		}
+		}
+
 		System.out.println("관리자 ID를 입력해주세요.");
 		String adminID = sc.next();
 		System.out.println("비밀번호를 입력해주세요.");
