@@ -15,8 +15,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MovieList {
-	
-	
+
 	
 	/*해당 객체를 만들고, 출력할 때는 무조건 try - catch 로 예외처리 해줘야함.
 	 * FileNotFoundException, InputMismatchException, IOException
@@ -24,7 +23,8 @@ public class MovieList {
 	
 	public List<Movie> movieArray;
 	
-		// 파일 덮어쓰기전에 실행하세요. txt파일에서 내용을 arraylist에 담기
+
+	// 파일 덮어쓰기전에 실행하세요. txt파일에서 내용을 arraylist에 담기
 	public void movieListCall() {
 		File file = new File("data/movieArray.txt");
 		movieArray = new ArrayList<Movie>();
@@ -32,8 +32,9 @@ public class MovieList {
 		String line = null;
 
 		try (Reader r = new FileReader(file); BufferedReader br = new BufferedReader(r)) {
+			
 			while ((line = br.readLine()) != null) {
-				String[] array = line.split("■"); // 띄어쓰기 삭제
+				String[] array = line.split("■"); // ■ 삭제
 				Movie movie = new Movie(); // 영화 객체 얻기
 
 				movie.movieName = array[0];
@@ -51,8 +52,8 @@ public class MovieList {
 		} catch (InputMismatchException e) {
 			System.out.println(e);
 		}
-
 	}
+	
 	// 파일 덮어쓰기 실행하세요. arraylist 에서 txt 파일 담기.
 	public void movieWrite() {
 		File file = new File("data/movieArray.txt");
@@ -81,7 +82,7 @@ public class MovieList {
 
 	}
 		
-		//영화 정보 출력
+   //영화 정보 출력
 	public void movieInfo() throws InputMismatchException, IOException{ // movieArray.get(i).movieInfo() 출력임
 		this.movieListCall();
 		System.out.println("--------------------");
@@ -92,7 +93,7 @@ public class MovieList {
 		}
 	}
 		
-		//영화 추가, movieArray.get(i).movieInfo() 출력임
+	//영화 추가, movieArray.get(i).movieInfo() 출력임
 	public void addToList() throws InputMismatchException, IOException{
 		movieListCall();
 		
@@ -132,7 +133,7 @@ public class MovieList {
 			System.out.println("정말 삭제하시겠습니까(y/n)");
 			String select = sc.nextLine();
 			
-			if(sc.nextLine().equals("y")) {
+			if(select.equals("y")) {
 				movieArray.remove(number);
 				System.out.println("삭제 되었습니다.");
 				movieWrite();
