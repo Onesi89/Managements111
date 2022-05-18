@@ -1,6 +1,7 @@
 package login;
 
 import SystemManagements.SystemStart;
+import customer.CustomerStart;
 
 import java.io.IOException;
 import java.util.InputMismatchException;
@@ -37,6 +38,11 @@ public class Login {
 				switch (sc.nextInt()) {
 				// 회원 로그인
 				case 1: { 
+					if (CustomerLogin.customerLogin()) {
+						CustomerStart.getInstance().systemStart();
+					} else {
+						System.out.println("처음부터 다시해주세요");
+					}
 					break;
 				}
 				// 관리자
