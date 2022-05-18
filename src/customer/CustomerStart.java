@@ -15,7 +15,7 @@ public class CustomerStart {
 		startEXE.systemStart();
 	}
 	
-	void systemStart() {
+	public void systemStart() {
 		Scanner sc = new Scanner(System.in);
 		int number = sc.nextInt();
 		System.out.println("1. 마이 페이지");
