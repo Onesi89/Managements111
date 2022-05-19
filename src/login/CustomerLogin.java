@@ -26,6 +26,7 @@ public class CustomerLogin {
 				if (!(path.exists())) {
 					path.createNewFile();
 				}
+				
 				System.out.println("1. 로그인  2. 회원 가입 3. 뒤로 가기");
 				int number = sc.nextInt();
 				System.out.println("-------------------------");
@@ -77,27 +78,5 @@ public class CustomerLogin {
 
 }
 
-
-/*		try (Reader r = new FileReader(path); BufferedReader br = new BufferedReader(r);) {
-			String line = null;
-			List<AdminLogin.AdminInfo> list = new ArrayList<AdminLogin.AdminInfo>();
-			while ((line = br.readLine()) != null) {
-				String[] s = line.split(" ");
-
-				AdminLogin a = new AdminLogin();
-				AdminLogin.AdminInfo admin = a.new AdminInfo(s[0], s[1], s[2], s[3], s[4]);
-				list.add(admin);
-			}
-			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i).adminID.equals(adminID) && list.get(i).adminPW.equals(adminPW)) {
-					return true;
-				} else {
-					System.out.println("아이디 비밀번호가 잘못 되었습니다. 처음부터 다시 시도해주세요");
-
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();;
-		}*/
 
 		
