@@ -28,6 +28,7 @@ public class AdminLogin {
 		String adminDuty; // 어드민 직급
 		List<AdminInfo> list = new ArrayList<AdminInfo>();
 		
+		
 		//맴버 기본 정보 생성자
 		AdminInfo(String adminID, String adminPW, String adminName, String adminPhone, String adminDuty) {
 			this.adminID = adminID;
@@ -39,6 +40,7 @@ public class AdminLogin {
 		
 		//맴버 생성자
 		AdminInfo(){}
+		
 
 		//직원 목록 부르기
 		@Override
@@ -61,6 +63,8 @@ public class AdminLogin {
 				
 				}catch(IOException e) {System.out.println("오류랄까");}}
 		
+		
+		
 		// 관리자 추가	
 		@Override
 		public void addToList() throws InputMismatchException, NumberFormatException, IOException {
@@ -70,7 +74,7 @@ public class AdminLogin {
 			System.out.println("-------------------------"); // 구분선
 			listCall(); //기존 리스트 불러오기
 			System.out.println("-------------------------"); // 구분선
-			
+		
 			//신규 확인
 			System.out.println("아이디를 입력해주세요.");
 			a.adminID = sc.next();
@@ -86,7 +90,6 @@ public class AdminLogin {
 			
 			if (!(sc.next().equals("y"))) {
 				System.out.println("취소 및 잘못입력하였습니다. 처음으로 돌아갑니다.");
-				adminLogin();
 			}
 			
 			int j = 0;
@@ -101,7 +104,7 @@ public class AdminLogin {
 			if(j == 0) {
 				list.add(a); // 기존 리스트에 추가
 				listWrite(false); // txt 파일에 덮어쓰기
-			}else addToList();
+			};
 
 			
 		};
@@ -158,6 +161,21 @@ public class AdminLogin {
 	
 	// 관리자 기본 화면
 	public static boolean adminLogin() throws IOException {
+		AdminLogin adminLogin = new AdminLogin();
+		AdminLogin.AdminInfo adminInfo = adminLogin.new AdminInfo();
+		
+	
+		// 아래의 경로가 없으면 생성해라.
+		if (!(path1.exists())) {
+			path1.mkdir();
+		}
+		if (!(path.exists())) {
+			path.createNewFile();
+		}
+		
+		//while문 시작
+		out:
+		while(true) {
 		System.out.println("-------------------------"); // 구분선
 		
 		try {
@@ -167,30 +185,21 @@ public class AdminLogin {
 			e1.printStackTrace();
 		}
 		
-		AdminLogin adminLogin = new AdminLogin();
+		
 		Scanner sc = new Scanner(System.in);
-		// 아래의 경로가 없으면 생성해라.
-
-		if (!(path1.exists())) {
-			path1.mkdir();
-		}
-		if (!(path.exists())) {
-			path.createNewFile();
-		}
+	
 		System.out.println("1. 기존 아이디 로그인  2. 관리자 추가 3. 관리자 삭제 4.뒤로가기" );
 		int number = sc.nextInt();
 		
-		AdminLogin.AdminInfo adminInfo = adminLogin.new AdminInfo();
+		
 		
 		switch(number) {
 		case 2:{
 			adminInfo.addToList();
-			adminLogin();
 			break;
 			
 		}case 3:{
 			adminInfo.delFromList();
-			adminLogin();
 			break;
 			
 		}case 4:{
@@ -198,14 +207,17 @@ public class AdminLogin {
 			loginStart.systemStart();
 			break;
 		}case 1:{
-			break;
+			break out;
 			
 		}default :{
 			System.out.println("번호를 잘못 입력하셨습니다. 처음으로 돌아갑니다.");
-			adminLogin();
 		}
 		}
-
+		}
+		
+		
+		Scanner sc = new Scanner(System.in);
+		
 		System.out.println("관리자 ID를 입력해주세요.");
 		String adminID = sc.next();
 		System.out.println("비밀번호를 입력해주세요.");
@@ -222,17 +234,16 @@ public class AdminLogin {
 				AdminLogin.AdminInfo admin = a.new AdminInfo(s[0], s[1], s[2], s[3], s[4]);
 				list.add(admin);
 			}
+			
 			for (int i = 0; i < list.size(); i++) {
 				if (list.get(i).adminID.equals(adminID) && list.get(i).adminPW.equals(adminPW)) {
-					return true;
-				} else {
-					System.out.println("아이디 비밀번호가 잘못 되었습니다. 처음부터 다시 시도해주세요");
-
+					return true;					
 				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();;
 		}
+		System.out.println("아이디 비밀번호가 잘못 되었습니다. 처음부터 다시 시도해주세요");
 		return false;
 	}
-}
+	}

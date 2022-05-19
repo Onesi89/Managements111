@@ -19,17 +19,34 @@ public class MemberArray implements HumanInfoEditable{
 	public File file = new File("data/test.txt");
 	public List<Member> memberArray;
 	public Scanner sc;
-
+	
+	
+	//로그인 할 떄 아이디 확인 비밀번호 확인
+	
+//	public boolean check1(String mId, String mPw) {
+//		for (int i = 0; i < memberArray.size(); i++) {
+//			if (memberArray.get(i).getmId().equals(mId)) {
+//				if (memberArray.get(i).getmPwd().equals(mPw)) {
+//					System.out.println("로그인에 성공하였습니다.");
+//					System.out.println("-------------------------");
+//					return true;
+//				}
+//			}
+//		}
+//		return false;
+//	}
+	
 	public Member check(String mId, String mPw) {
 		listCall();
 
 		for (int i = 0; i < memberArray.size();i++) {
 			if (memberArray.get(i).getmId().equals(mId)) {
 				if (memberArray.get(i).getmPwd().equals(mPw)) {
-					System.out.println("로그인에 성공하였습니다.");
-					System.out.println("-------------------------");
-					return memberArray.get(i);
-				}
+				System.out.println("로그인에 성공하였습니다.");
+				System.out.println("-------------------------");
+				return memberArray.get(i);
+				}		
+				
 				/*
 				 * System.out.println("이름 :" + Member.mName); System.out.println("생년월일 :" +
 				 * Member.mBirth); System.out.println("주소 :" + Member.mAddress);
@@ -43,6 +60,7 @@ public class MemberArray implements HumanInfoEditable{
 
 	}
 
+	//고객정보 txt를 읽는 메서드
 	@Override
 	public void listCall() { // 고객 리스트 불러오는 메서드, member를 memberArray 객체에 넣는다.
 		File file = new File("data/test.txt"); // 나중에 data/고객정보.txt 바뀔예정
@@ -75,7 +93,7 @@ public class MemberArray implements HumanInfoEditable{
 		}
 	}
 
-	
+	// 회원 추가
 	@Override
 	public void addToList() throws InputMismatchException, IOException, NumberFormatException {
 
@@ -89,6 +107,7 @@ public class MemberArray implements HumanInfoEditable{
 		System.out.println("-------------------------"); // 구분선
 
 		String mNum = String.valueOf(memberArray.size());
+		
 		System.out.println("아이디를 입력하세요.");
 		String mId = sc.nextLine();
 		;
@@ -117,7 +136,7 @@ public class MemberArray implements HumanInfoEditable{
 
 		Member member1 = new Member(mNum, mId, mPwd, mName, mBirth, mAddress, mPhone, mEmail, mGrade, mPoint);
 
-		boolean trueOrFalse = true; // while 탈출 할 것인말것인지 확인
+		boolean trueOrFalse = true; // while 탈출 할 것인지 말것인지 확인
 
 		if (!(sc.next().equals("y"))) {
 			System.out.println("!--취소 및 잘못입력하였습니다. 처음으로 돌아갑니다.--!");
@@ -170,6 +189,7 @@ public class MemberArray implements HumanInfoEditable{
 	public void delFromList() throws InputMismatchException, IOException, NumberFormatException {
 	}
 	
+	//파일로 저장
 	@Override
 	public void listWrite(boolean trueOrFalse) throws InputMismatchException, IOException, NumberFormatException {
 		sc = new Scanner(System.in);
@@ -192,6 +212,11 @@ public class MemberArray implements HumanInfoEditable{
 		bos.close();
 	}
 
-
+	public void edit(int number,Member member) throws InputMismatchException, NumberFormatException, IOException {
+		listCall();
+		memberArray.set(number,member);
+		listWrite(false);
+		
+	}
 }
 

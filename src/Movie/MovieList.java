@@ -84,7 +84,7 @@ public class MovieList {
 		
    //영화 정보 출력
 	public void movieInfo() throws InputMismatchException, IOException{ // movieArray.get(i).movieInfo() 출력임
-		this.movieListCall();
+		movieListCall();
 		System.out.println("--------------------");
 		for (int i = 0; i < movieArray.size(); i++) {
 			System.out.print(i+1+". ");
@@ -115,30 +115,34 @@ public class MovieList {
 		String plot = sc.nextLine();
 		movie.setPlot(plot);
 		
+	
 		movieArray.add(movie);
 		
 		movieWrite();
-
+		
+		System.out.println("추가 되었습니다. 영화 관리 화면으로 돌아갑니다.");
 	}
 		
-		// 영화 삭제
-		public void delFromList() { //movieArray.get(i).movieInfo() 출력임
-			movieListCall();
-			
-			Scanner sc = new Scanner(System.in);
-			
-			System.out.println("삭제할 영화의 번호를 선택해주세요.");
-			int number = sc.nextInt()-1;
-			
-			System.out.println("정말 삭제하시겠습니까(y/n)");
-			String select = sc.nextLine();
-			
-			if(select.equals("y")) {
-				movieArray.remove(number);
-				System.out.println("삭제 되었습니다.");
-				movieWrite();
-			}else {
-				System.out.println("잘못 입력하였습니다. 처음으로 돌아갑니다.");
+	// 영화 삭제
+	public void delFromList() { // movieArray.get(i).movieInfo() 출력임
+		movieListCall();
+		for(int i = 0; i< movieArray.size(); i++) {
+			System.out.println((i+1) + " ."+ movieArray.get(i).movieName);
+		}
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println("삭제할 영화의 번호를 선택해주세요.");
+		int number = Integer.parseInt(sc.nextLine()) - 1;
+
+		System.out.println("정말 삭제하시겠습니까(y/n)");
+		String select = sc.nextLine();
+
+		if (select.equals("y")) {
+			movieArray.remove(number);
+			System.out.println("삭제 되었습니다. 영화 관리 화면으로 돌아갑니다.");
+			movieWrite();
+		} else {
+			System.out.println("잘못 입력하였습니다. 영화 관리 화면으로 돌아갑니다.");
 		}
 
 	}

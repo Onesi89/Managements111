@@ -30,6 +30,7 @@ public class Member { // 현재 로그인한 멤버의 정보를 담는 클래�
 	public String getmNum() {
 		return mNum;
 	}
+	
 
 	public String getmId() {
 		return mId;
@@ -37,6 +38,9 @@ public class Member { // 현재 로그인한 멤버의 정보를 담는 클래�
 
 	public String getmPwd() {
 		return mPwd;
+	}
+	public void setmPwd(String mPwd) {
+		this.mPwd = mPwd;
 	}
 
 	public String getmName() {
@@ -81,4 +85,6 @@ public class Member { // 현재 로그인한 멤버의 정보를 담는 클래�
 		}
 		return false;
 	}
+
+	
 }
