@@ -3,8 +3,19 @@ package customer;
 import java.util.Scanner;
 
 public class MemberStart {
+
+
+//	public static void main(String[] args) {
+//		First();
+//	}
 	
-	public static void First() {
+	public static void First(Member member1) {
+		Member member = member1;
+		
+		System.out.println(member.getmId());
+		System.out.println(member.getmName());
+		System.out.println(member.getmAddress());
+		System.out.println(member.getmBirth());
 		
 		Scanner sc = new Scanner(System.in);
 		
@@ -32,8 +43,7 @@ public class MemberStart {
 //			break;
 
 		case 3:
-			Mypage m = new Mypage();
-			m.printmypage();
+			Mypage.printmypage();
 			break;
 			
 //		case 4:
