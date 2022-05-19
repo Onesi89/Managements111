@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
+import customer.Member;
 import customer.MemberArray;
 import customer.MemberStart;
 
@@ -67,11 +68,12 @@ public class CustomerLogin {
 
 		MemberArray memberArray = new MemberArray();
 
-		if (memberArray.check(mId, mPw) != null) {
-			
-			MemberStart.First(memberArray.check(mId, mPw)); //고객정보있어야함 내용있어야함.
+		Member member1 = memberArray.check(mId, mPw);
 
-			
+		if (member1 != null) {
+
+			MemberStart.First(member1); // 고객정보있어야함 내용있어야함.
+
 		}
 
 	}

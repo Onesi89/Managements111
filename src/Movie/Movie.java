@@ -39,10 +39,10 @@ public class Movie {
 	
 	public void movieInfo() {
 		System.out.println("영화 제목 : " + movieName + "\n"+ 
-						   "관람객 수: " + visitorNumber +"\n"+
-						   "영화 배우: " + actors + "\n"+
-						   "줄거리 : " + plot +"\n"+
-						   "상영관 : " + screenNumber);
+						   "     관람객 수: " + visitorNumber +"\n"+
+						   "     영화 배우: " + actors + "\n"+
+						   "     줄거리 : " + plot +"\n"+
+						   "     상영관 : " + screenNumber);
 	}
 	
 

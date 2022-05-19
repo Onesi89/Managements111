@@ -2,20 +2,12 @@ package customer;
 
 import java.util.Scanner;
 
+import Movie.Snack12;
+
 public class MemberStart {
 
-
-//	public static void main(String[] args) {
-//		First();
-//	}
-	
 	public static void First(Member member1) {
 		Member member = member1;
-		
-		System.out.println(member.getmId());
-		System.out.println(member.getmName());
-		System.out.println(member.getmAddress());
-		System.out.println(member.getmBirth());
 		
 		Scanner sc = new Scanner(System.in);
 		
@@ -34,16 +26,19 @@ public class MemberStart {
 		switch(num) {
 //		case 1:
 //
-//			
+
 //			break;
 //			
-//		case 2:
-//
-//
-//			break;
+		case 2:
+//			snack가면 
+			Snack12 snack = new Snack12();
+			snack.make(member);
+
+			break;
 
 		case 3:
-			Mypage.printmypage();
+			Mypage mypage = new Mypage();
+			mypage.printmypage(member);
 			break;
 			
 //		case 4:

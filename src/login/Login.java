@@ -47,10 +47,9 @@ public class Login {
 				}
 				// 관리자
 				case 2: { 
+					
 					if (AdminLogin.adminLogin()) {
 						SystemStart.getInstance().systemStart();
-					} else {
-						System.out.println("처음부터 다시해주세요");
 					}
 					break;
 				}

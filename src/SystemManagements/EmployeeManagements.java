@@ -41,6 +41,7 @@ public class EmployeeManagements implements interfaceList.HumanInfoEditable{
 	}
 	@Override
 	public void listCall() {
+		out:
 		while (true) {
 			try (Reader r = new FileReader(path); BufferedReader br = new BufferedReader(r);) {
 				for(long i = 0 ; i < 1000000000 ; i++) {} //시간 지연
@@ -78,28 +79,22 @@ public class EmployeeManagements implements interfaceList.HumanInfoEditable{
 					case 1: {
 						System.out.println("------------------------------------");
 						this.addToList();
-						listCall();
 						break;
 					}
 					case 2: {
 						System.out.println("------------------------------------");
 						this.delFromList();
-						listCall();;
 						break;
 
 					}
 					case 3: {
 						System.out.println("------------------------------------");
 						this.employeeEdit();
-						listCall();
 						break;
 					}
-
 					case 4: {
-						System.out.println("------------------------------------");
-						SystemStart startEXE = SystemStart.getInstance();
-						startEXE.systemStart();
-						break;
+						
+						break out;
 					}
 					default: {
 						System.out.println("번호를 다시 선택해주세요.97");
@@ -111,6 +106,9 @@ public class EmployeeManagements implements interfaceList.HumanInfoEditable{
 				System.out.println("!110 입출력 파일에 오류가 있습니다. 확인 해주세요.");
 			}
 		}
+		System.out.println("------------------------------------");
+		SystemStart startEXE = SystemStart.getInstance();
+		startEXE.systemStart();
 	}
 	
 	@Override
@@ -135,7 +133,7 @@ public class EmployeeManagements implements interfaceList.HumanInfoEditable{
 					BufferedWriter bos = new BufferedWriter(os);) {
 				String a = sc.next();
 				if (a.equals("y")) {
-					System.out.println("저장 되었습니다.");
+					System.out.println("저장 되었습니다. 처음으로 돌아갑니다.");
 					for (EmployeeManagements e : emList) {
 						bos.write(e.name + " ");
 						bos.write(e.phoneNumber + " ");
@@ -146,7 +144,6 @@ public class EmployeeManagements implements interfaceList.HumanInfoEditable{
 					break out;
 				} else if (a.equals("n")) {
 					System.out.println("! 146 잘못 입력하였습니다. 처음으로 돌아갑니다.");
-					listCall();
 				} else {
 					System.out.println("다시 입력해주세요(y/n)");
 				}
@@ -166,10 +163,11 @@ public class EmployeeManagements implements interfaceList.HumanInfoEditable{
 		System.out.println("정말 삭제하시겠습니까?(y/n) 복구가 불가능합니다.");
 		String a = sc.next();
 		if (a.equals("y")) {
+			System.out.println("직원이 삭제되었습니다. 직원관리화면으로 돌아갑니다.");
 			emList.remove(number);
 			listWrite(false);
 		} else {
-			System.out.println("!178 취소되었습니다. 처음으로 돌아갑니다.");
+			System.out.println("!178 취소되었습니다. 직원관리화면으로 돌아갑니다..");
 		}
 
 	}

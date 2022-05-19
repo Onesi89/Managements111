@@ -1,27 +1,26 @@
 package customer;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Myinfo {
-
+	Member member;
 	// 내정보관리 화면출력
-	public void printMyinfo() {
+
+	public void printMyinfo(Member member1) {
+		
+		member = member1;// 이름■생년월일■주소■연락처■이메일
+
+		System.out.println(member.getmName());
 
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("내정보 관리에 들어왔습니다. 번호를 선택하여 주세요.");
 		System.out.println("==============================");
 
-		mMember(); // 이름■생년월일■주소■연락처■이메일
+		mMember(); // 회원정보 호출
 
 		System.out.println();
 		System.out.println("1. 비밀번호 변경");
@@ -34,222 +33,151 @@ public class Myinfo {
 		System.out.print("메뉴 선택 : ");
 
 		int num = sc.nextInt();
-
+		try {
 		switch (num) {
 		case 1: // 비밀번호 변경
 			editPassword();
 			break;
-//		case 2: // 주소 변경
-//			editAddress();
-//			break;
-//		case 3: // 휴대폰 번호 변경
-//			editPhoneNumber();
-//			break;
-//		case 4: // 이메일 변경
-//			editEmail();
+
+		// case 2: // 주소 변경
+		// editAddress();
+		// break;
+		//
+		// case 3: // 휴대폰 번호 변경
+		// editPhoneNumber();
+		// break;
+		//
+		// case 4: // 이메일 변경
+		// editEmail();
+		// break;
+		//
 		case 5: // 뒤로가기
-			Mypage.printmypage();
+			// printmypage(member);
+			break;
+
 		case 6: // 처음으로 돌아가기
-			MemberStart.First();
-		}
+			MemberStart.First(member);
+			break;
+
+		}}
+		catch(IOException e){};
 
 	}
 
-	// 이름■생년월일■주소■연락처■이메일
+	// 이름■생년월일■주소■연락처■이메일 
 	private void mMember() {
+						System.out.println("이름 :" + member.getmName());
+						System.out.println("생년월일 :" + member.getmBirth()); 
+						System.out.println("주소 :" +member.getmAddress());
+						System.out.println("연락처 :" + member.getmPhone());
+						System.out.println("이메일 :" + member.getmEmail()); 
+						System.out.println("등급 :" + member.getmGrade()); 
+						}
+	
+	 // 비밀번호 //
 
-		File file = new File("C:\\DDGCinema-master\\DDGCinema-master\\[02] 데이터 파일\\고객정보.txt");
 
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(file));
-			String str = null;
+//	 비밀번호 변경메뉴 
 
-			try {
-				int i;
-				List<Member> list = new ArrayList<>();
-				while ((str = br.readLine()) != null) {
-					String[] m = str.split("■");// 한 줄이 m[0], m[1], m[2]...m[9]로 나누어짐
-					Member member = new Member(m[0], m[1], m[2], m[3], m[4], m[5], m[6], m[7], m[8], m[9]);
-					list.add(member);
-
-					if (m[1].equals("xmpcg866")) {
-						System.out.println("이름 :" + Member.mName);
-						System.out.println("생년월일 :" + Member.mBirth);
-						System.out.println("주소 :" + Member.mAddress);
-						System.out.println("연락처 :" + Member.mPhone);
-						System.out.println("이메일 :" + Member.mEmail);
-						System.out.println("등급 :" + Member.mGrade);
-					}
-				}
-
-				br.close();
-			} catch (NullPointerException e) {
-			} catch (FileNotFoundException e) {
-			} catch (IOException e) {
-			}
-		} catch (Exception e) {
-		}
-	}
-	// 비밀번호
-	// -----------------------------------------------------------------------------
-
-	// 비밀번호 변경메뉴
-	private void editPassword() {
+	private void editPassword() throws InputMismatchException, NumberFormatException, IOException { 
 		Scanner sc = new Scanner(System.in);
 
-		System.out.println("비밀번호 변경에 들어왔습니다. 변경할 비밀번호를 입력하세요.");
-		System.out.println("비밀번호는 8자리 이상 특수문자(!@#$%^&*), 영어 대문자, 소문자만 사용가능합니다.");
-		System.out.println("==============================");
-		System.out.println("1. 뒤로가기");
-		System.out.println("2. 처음으로가기");
-		System.out.println("==============================");
-		System.out.print("입력(변경할 비밀번호 or 숫자 입력) : ");
+	System.out.println("비밀번호 변경에 들어왔습니다. 변경할 비밀번호를 입력하세요.");
+	System.out.println("비밀번호는 8자리 이상 특수문자(!@#$%^&*), 영어 대문자, 소문자만 사용가능합니다.");
+	System.out.println("==============================");
+	System.out.println("1. 뒤로가기");
+	System.out.println("2. 처음으로가기");
+	System.out.println("==============================");
+	System.out.print("입력(변경할 비밀번호 or 숫자 입력) : ");
 
-		// 변경할 데이터 입력 또는 메뉴 선택
-		String input = sc.nextLine();
+	// 변경할 데이터 입력 또는 메뉴 선택 
+	
+	String input = sc.nextLine();
 
-		if (input.equals("1")) {// 뒤로가기
+	if(input.equals("1")){// 뒤로가기
 
-			printMyinfo();
+//		MemberStart.Member(member);
 
-		} else if (input.equals("2")) {// 처음으로가기
+	}else if(input.equals("2")){// 처음으로가기
 
-			MemberStart.First();
+		MemberStart.First(member);
 
-		} else {
-			passwordEdit(input); // 변경하는 메소드
-
-		}
+	}else{passwordEdit(input); // 변경하는 메소드
 
 	}
 
-		// 비밀번호 변경
-		private void passwordEdit(String input) {
+	}
 
-			// 현재 고객정보 목록 불러오기
-			String path = "C:\\DDGCinema-master\\DDGCinema-master\\[02] 데이터 파일\\고객정보.txt";
-			File dir = new File(path);
+	// 비밀번호 변경 
+	private void passwordEdit(String input) throws InputMismatchException, NumberFormatException, IOException { 
+		
+//		System.out.println("변경할 비밀번호");
 
-			// 파일 읽어 오고 list에 저장
-			ArrayList<String> list = new ArrayList<String>();
-			
+		String mPwd = input;
+		
+		if (mPwd.length() >= 8) {
+			for (int i = 0; i < mPwd.length(); i++) {
+				// 영어, 숫자, 특수문자(!@#$%^&*)
+				if ((mPwd.charAt(i) >= 'A' && mPwd.charAt(i) <= 'Z') || (mPwd.charAt(i) >= 'a' && mPwd.charAt(i) <= 'z')
+						|| (mPwd.charAt(i) >= '0' && mPwd.charAt(i) <= '9') || mPwd.charAt(i) == '!'
+						|| mPwd.charAt(i) == '@' || mPwd.charAt(i) == '#' || mPwd.charAt(i) == '$'
+						|| mPwd.charAt(i) == '%' || mPwd.charAt(i) == '^' || mPwd.charAt(i) == '&'
+						|| mPwd.charAt(i) == '*') {
 
-			BufferedReader reader;
-			try {
-				reader = new BufferedReader(
-						new FileReader("C:\\DDGCinema-master\\DDGCinema-master\\[02] 데이터 파일\\고객정보.txt"));
-
-				
-
-				try {
-					String line = null;
-					while ((line = reader.readLine()) != null) {
-                       //!!!!!!
-						list.add(line + "\n");
-
-					}
-					reader.close();
-				} catch (IOException e) {
-				}
-
-			} catch (FileNotFoundException e) {
-			} 
-			
-			// 비밀번호 유효성 검사
-			if (input.length() >= 8) {// 8자리 이상
-
-				for (int i = 0; i < input.length(); i++) {
-
-					if ((input.charAt(i) >= 'A' && input.charAt(i) <= 'Z') // 영어, 숫자, 특수문자(!@#$%^&*)
-							|| (input.charAt(i) >= 'a' && input.charAt(i) <= 'z')
-							|| (input.charAt(i) >= '0' && input.charAt(i) <= '9') || input.charAt(i) == '!'
-							|| input.charAt(i) == '@' || input.charAt(i) == '#' || input.charAt(i) == '$'
-							|| input.charAt(i) == '%' || input.charAt(i) == '^' || input.charAt(i) == '&'
-							|| input.charAt(i) == '*') {
-
-					} else {
-						editPasswordFail();
-						break;
-					}
-				}
-			} else {
-				editPasswordFail();
-			}
-
-			dir.delete(); //파일 삭제
-
-			// 파일 다시 쓰고 저장
-			try {
-				BufferedWriter writer = new BufferedWriter(
-						new FileWriter("C:\\DDGCinema-master\\DDGCinema-master\\[02] 데이터 파일\\고객정보.txt", true));
-				
-				for (String text : list) {
-
-					String[] m = new String[10];
-					m = text.split("■");
-					String info = "";
 					
-					if (m[3].equals("한보라")) {
-
-						if (!(input.equals(m[2]))) {
-							writer.write(text.replaceFirst(m[2], input));
-						} 
-						else {}
-					}else {writer.write(text); }
-				}
-				
-				writer.close();
-				editPasswordSuccess(); // 비밀번호 입력 성공 출력
-			} catch (IOException e) {}
-		}
-
-		// 비밀번호 변경 성공시
-		private void editPasswordSuccess() {
-
-				Scanner sc = new Scanner(System.in);
-
-				System.out.println("비밀번호 변경에 성공하였습니다. 번호를 선택하여 주세요.");
-				System.out.println("==============================");
-				System.out.println("1. 뒤로가기");
-				System.out.println("2. 처음으로 돌아가기");
-				System.out.println("==============================");
-				System.out.print("메뉴 선택 : ");
-
-				int num = sc.nextInt();
-
-				switch (num) {
-				case 1:
-					printMyinfo();
-				case 2: // 처음으로가기
-					MemberStart.First();
-
-				}// switch
-
-			} // for
-
-
-		// 비밀번호 변경 실패시
-		private void editPasswordFail() {
-
-				Scanner sc = new Scanner(System.in);
-
-				System.out.println("비밀번호 변경에 실패하였습니다. 번호를 선택하여 주세요.");
-				System.out.println("==============================");
-				System.out.println("1. 뒤로가기");
-				System.out.println("2. 처음으로 돌아가기");
-				System.out.println("==============================");
-				System.out.print("메뉴 선택 : ");
-
-				int num = sc.nextInt();
-
-				switch (num) {
-				case 1: // 뒤로가기
-					editPassword();
-				case 2: // 처음으로가기
-					MemberStart.First();
+					// if문 빠져나가기 위함
+					i = 10000000;
+					
+					this.member.setmPwd(mPwd);
+					MemberArray memberArray = new MemberArray();
+					this.member.getmNum();
+					memberArray.edit(Integer.parseInt(this.member.getmNum())-1, member);
+					
+					break;
 
 				}
-
 			}
+		} else {
+			System.out.println("!--유효하지 않은 비밀번호입니다. 확인 부탁드립니다.--!");
 
+			// editPasswordFail();
 		}
+
+		
+		}
+		
+		
+		
+
+//		try{
+//			BufferedReader br = new BufferedReader(new FileReader(file));
+//			String str = null;
+//
+//			try{ 
+//				int i; List<Member> list = new ArrayList<>(); 
+//				while ((str = br.readLine()) != null) { 
+//					String[] m = str.split("■");// 한 줄이 m[0], m[1], m[2]...m[9]로 나누어짐 
+//					Member member = new Member(m[0], m[1], m[2], m[3], m[4], m[5], m[6], m[7], m[8], m[9]);
+//
+//
+//					if (!(input.equals(m[2]))) { 
+//						str.replaceFirst("jkld73!!", "dktLwje2"); 
+//						}
+//					list.add(member);
+//
+//					MemberArray a = new MemberArray(); 
+//					a.listWrite(false); }
+//
+//				br.close(); 
+//				}catch(NullPointerException e)
+//			{
+//			}catch(FileNotFoundException e)
+//			{
+//			}catch(IOException e)
+//			{
+//			}catch(Exception e)
+//		
+//		}
+
+	}
+
