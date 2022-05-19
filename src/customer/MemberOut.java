@@ -41,7 +41,7 @@ public class MemberOut {
 				return;
 				
 			} else  if(input.equals("2")){ //처음으로가기
-				MemberStart.First();
+				Mypage.printmypage();
 			}
 			
 		}//for

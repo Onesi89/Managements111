@@ -1,16 +1,16 @@
 package customer;
 
-public class Member { // 현재 로그인한 멤버의 정보를 담는 클래스
-	public static String mNum = "0";
-	public static String mId;
-	public static String mPwd;
-	public static String mName;
-	public static String mBirth;
-	public static String mAddress;
-	public static String mPhone;
-	public static String mEmail;
-	public static String mGrade;
-	public static String mPoint = "0";
+public class Member { // 현재 로그인한 멤버의 정보를 담는 클래스 static ->private 로 바꿈
+	private String mNum = "0";
+	private String mId;
+	private String mPwd;
+	private String mName;
+	private String mBirth;
+	private String mAddress;
+	private String mPhone;
+	private String mEmail;
+	private String mGrade;
+	private String mPoint = "0";
 	
 	public Member(String mNum, String mId, String mPwd, String mName, String mBirth, String mAddress, String mPhone,
 			String mEmail, String mGrade, String mPoint) {
@@ -27,43 +27,43 @@ public class Member { // 현재 로그인한 멤버의 정보를 담는 클래�
 		
 	}
 
-	public static String getmNum() {
+	public String getmNum() {
 		return mNum;
 	}
 
-	public static String getmId() {
+	public String getmId() {
 		return mId;
 	}
 
-	public static String getmPwd() {
+	public String getmPwd() {
 		return mPwd;
 	}
 
-	public static String getmName() {
+	public String getmName() {
 		return mName;
 	}
 
-	public static String getmBirth() {
+	public String getmBirth() {
 		return mBirth;
 	}
 
-	public static String getmAddress() {
+	public String getmAddress() {
 		return mAddress;
 	}
 
-	public static String getmPhone() {
+	public String getmPhone() {
 		return mPhone;
 	}
 
-	public static String getmEmail() {
+	public String getmEmail() {
 		return mEmail;
 	}
 
-	public static String getmGrade() {
+	public String getmGrade() {
 		return mGrade;
 	}
 
-	public static String getmPoint() {
+	public String getmPoint() {
 		return mPoint;
 	}
 	
@@ -73,4 +73,12 @@ public class Member { // 현재 로그인한 멤버의 정보를 담는 클래�
 		return mNum + mId + mPwd + mName + mBirth + mAddress + mPhone + mEmail + mGrade + mPoint;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Member) {
+			if (this.getmId().equals(((Member) obj).getmId()))
+				return true;
+		}
+		return false;
+	}
 }
