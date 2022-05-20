@@ -1,11 +1,11 @@
 package login;
 
-import SystemManagements.SystemStart;
-import customer.CustomerStart;
-
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import SystemManagements.SystemStart;
 
 // Login 회원 /관리자   암호
 public class Login {
@@ -61,12 +61,15 @@ public class Login {
 					System.exit(0);
 					}
 				}
+			}catch (FileNotFoundException e) {
+				System.out.println("오류가 났습니다. 오류번호 01");
+				
 			} catch (IOException e) {
-				System.out.println("입출력 파일이 잘못되었습니다.");
+				System.out.println("오류가 났습니다. 오류번호 02");
 
 			} catch (InputMismatchException e) {
 				System.out.println("잘못 입력하셨습니다.");
-			}
+			} 
 
 		}
 	}

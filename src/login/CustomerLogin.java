@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-import customer.CustomerStart;
 import customer.Member;
 import customer.MemberArray;
 import customer.MemberStart;

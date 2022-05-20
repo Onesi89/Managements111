@@ -11,6 +11,7 @@ public class Member { // 현재 로그인한 멤버의 정보를 담는 클래�
 	private String mEmail;
 	private String mGrade;
 	private String mPoint = "0";
+
 	
 	public Member(String mNum, String mId, String mPwd, String mName, String mBirth, String mAddress, String mPhone,
 			String mEmail, String mGrade, String mPoint) {
@@ -54,15 +55,24 @@ public class Member { // 현재 로그인한 멤버의 정보를 담는 클래�
 	public String getmAddress() {
 		return mAddress;
 	}
+	public void setmAddress(String mAddress) {
+		this.mAddress = mAddress;
+	}
 
 	public String getmPhone() {
 		return mPhone;
 	}
-
+	public void setmPhone(String mPhone) {
+		this.mPhone = mPhone;
+	}
+	
 	public String getmEmail() {
 		return mEmail;
 	}
-
+	public void setmEmail(String mEmail) {
+		this.mEmail = mEmail;
+	}
+	
 	public String getmGrade() {
 		return mGrade;
 	}
@@ -71,6 +81,14 @@ public class Member { // 현재 로그인한 멤버의 정보를 담는 클래�
 		return mPoint;
 	}
 	
+	
+	public void minusPoint(int usePoint) {
+		this.mPoint = String.valueOf((Integer.parseInt(this.mPoint) - usePoint));
+	}
+	
+	public void plusPoint(int plusPoint) {
+		this.mPoint = String.valueOf((Integer.parseInt(this.mPoint) + plusPoint));
+	}
 
 	@Override
 	public String toString() {
