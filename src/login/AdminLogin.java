@@ -71,21 +71,29 @@ public class AdminLogin {
 			sc = new Scanner(System.in);
 			AdminInfo a = new AdminInfo();
 			System.out.println("기존 리스트입니다.");
+			
 			System.out.println("-------------------------"); // 구분선
+			
 			listCall(); //기존 리스트 불러오기
+			
 			System.out.println("-------------------------"); // 구분선
 		
 			//신규 확인
 			System.out.println("아이디를 입력해주세요.");
 			a.adminID = sc.next();
+			
 			System.out.println("패스워드를 입력해주세요.");
 			a.adminPW = sc.next();
+			
 			System.out.println("이름을 입력해주세요.");
 			a.adminName = sc.next();
+			
 			System.out.println("핸드폰 번호를 입력해주세요.");
 			a.adminPhone = sc.next();
+			
 			System.out.println("직급을 입력해주세요");
 			a.adminDuty = sc.next();
+			
 			System.out.println("저장하시겠습니까(y/n)");
 			
 			if (!(sc.next().equals("y"))) {
@@ -93,6 +101,7 @@ public class AdminLogin {
 			}
 			
 			int j = 0;
+			
 			for (int i = 0; i < list.size(); i++) { // 아이디 중복 
 				if (list.get(i).adminID.equals(a.adminID)) {
 					System.out.println("아이디가 중복되었습니다. 아이디를 확인해주세요.");
@@ -113,11 +122,11 @@ public class AdminLogin {
 		@Override
 		public void delFromList () throws InputMismatchException, NumberFormatException, IOException {
 			
-			
 			listCall(); // 기존 리스트 부르기
 			
 			sc = new Scanner(System.in); //입력받을 스캐너 실행
 			System.out.println("삭제하실 번호를 선택해주세요.");
+			
 			int number = sc.nextInt() - 1; //리스트 인덱스 번호 입력 받기
 			
 			if((number > -1) && number < list.size()) {
@@ -137,6 +146,7 @@ public class AdminLogin {
 			sc = new Scanner(System.in);
 			Writer os = new FileWriter(path,trueOrFalse);
 			BufferedWriter bos = new BufferedWriter(os);
+		
 			for (AdminInfo e : list) {
 				bos.write(e.adminID + " ");
 				bos.write(e.adminPW + " ");
@@ -181,15 +191,19 @@ public class AdminLogin {
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			System.out.println("오류가 발생하였습니다.");
 		}
 		
 		
 		Scanner sc = new Scanner(System.in);
-	
-		System.out.println("1. 기존 아이디 로그인  2. 관리자 추가 3. 관리자 삭제 4.뒤로가기" );
+		
+		System.out.println("    [관리자 로그인 페이지]" );
+		System.out.println("1.기존 아이디 로그인 \n2.관리자 추가\n3.관리자 삭제 \n4.뒤로가기" );
+		System.out.println("-------------------------"); // 구분선
+		System.out.println("선택 ");
 		int number = sc.nextInt();
+		System.out.println("-------------------------"); // 구분선
+
 		
 		
 		
@@ -220,10 +234,11 @@ public class AdminLogin {
 		
 		System.out.println("관리자 ID를 입력해주세요.");
 		String adminID = sc.next();
+		
 		System.out.println("비밀번호를 입력해주세요.");
 		String adminPW = sc.next();
 		
-		
+
 		try (Reader r = new FileReader(path); BufferedReader br = new BufferedReader(r);) {
 			String line = null;
 			List<AdminLogin.AdminInfo> list = new ArrayList<AdminLogin.AdminInfo>();
@@ -243,6 +258,7 @@ public class AdminLogin {
 		} catch (IOException e) {
 			e.printStackTrace();;
 		}
+		
 		System.out.println("아이디 비밀번호가 잘못 되었습니다. 처음부터 다시 시도해주세요");
 		return false;
 	}

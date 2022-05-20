@@ -1,6 +1,5 @@
 package customer;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -108,7 +107,7 @@ public class Myinfo {
 
 	}
 
-	// 비밀번호 변경 
+	// 비밀번호 변경  String inpu - 변경할 비밀번호
 	private void passwordEdit(String input) throws InputMismatchException, NumberFormatException, IOException { 
 		
 //		System.out.println("변경할 비밀번호");
@@ -129,8 +128,13 @@ public class Myinfo {
 					i = 10000000;
 					
 					this.member.setmPwd(mPwd);
-					MemberArray memberArray = new MemberArray();
+					
+					
 					this.member.getmNum();
+					
+					MemberArray memberArray = new MemberArray();
+					
+					
 					memberArray.edit(Integer.parseInt(this.member.getmNum())-1, member);
 					
 					break;

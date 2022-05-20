@@ -11,7 +11,8 @@ public class Mypage {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("마이페이지에 들어왔습니다. 번호를 선택해주세요.");
+		System.out.println("==============================");
+		System.out.println("마이페이지");
 		
 		System.out.println("==============================");
 		System.out.println("1. 내 정보 관리");

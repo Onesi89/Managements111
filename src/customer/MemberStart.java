@@ -1,7 +1,10 @@
 package customer;
 
+import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import Movie.MovieReservation;
 import Movie.Snack12;
 
 public class MemberStart {
@@ -12,6 +15,7 @@ public class MemberStart {
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println();
+		System.out.println("  [회원 페이지]");
 		System.out.println("==============================");
 		System.out.println("1. 예매하기");
 		System.out.println("2. 상품");
@@ -20,15 +24,17 @@ public class MemberStart {
 		System.out.println("==============================");
 		System.out.print("메뉴 선택 : ");
 		
+		try {
 		
 		int num = sc.nextInt();
 	    
 		switch(num) {
-//		case 1:
-//
+    	case 1:
+    		MovieReservation reservation = new MovieReservation(); 
+    		reservation.reservation();
 
-//			break;
-//			
+		break;
+		
 		case 2:
 //			snack가면 
 			Snack12 snack = new Snack12();
@@ -47,7 +53,12 @@ public class MemberStart {
 //			
 //			break;
 		}
-		System.out.println();
+			System.out.println();
+		} catch(IOException e) {
+			System.out.println("입출력 오류입니다.");
+		} catch(InputMismatchException e) {
+			System.err.println("잘못 입력하셨습니다.");
+		}
 	}
 }
 

@@ -18,9 +18,11 @@ public class CustomerStart {
 	public void systemStart() {
 		Scanner sc = new Scanner(System.in);
 		int number = sc.nextInt();
+		
+		System.out.println("회원페이지입니다.");
 		System.out.println("1. 마이 페이지");
 		System.out.println("2. 영화 예매");
-		System.out.println("3. 스낵 구매");
+//		System.out.println("3. 스낵 구매");
 		System.out.println("4. 이벤트");
 
 		switch (number) {
