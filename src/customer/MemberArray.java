@@ -25,6 +25,7 @@ public class MemberArray implements HumanInfoEditable{
 	public Member check(String mId, String mPw) {
 	
 		listCall();
+		
 
 		for (int i = 0; i < memberArray.size();i++) {
 			if (memberArray.get(i).getmId().equals(mId)) {

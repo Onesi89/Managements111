@@ -291,7 +291,7 @@ public class CustomerManagements {
 				}
 			}
 		}else {
-			System.out.println("\n잘못입력하셨습니다. 고객관리로 돌아갑니다.\n");}
+			System.out.println("\n뒤로가기 또는 잘못입력을 선택하셨습니다. 고객관리로 돌아갑니다.\n");}
 }
 	
 	//회원 수정 이너클래스

@@ -3,187 +3,139 @@ package customer;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
+import login.Login;
+
 public class MemberOut {
-
-	//회원탈퇴 화면출력	
-	public void memberOutprint() {
-
-		for (;;) {
-				
-			Scanner sc = new Scanner(System.in);
-			
-			System.out.printf("회원탈퇴에 들어왔습니다.\n");
-			System.out.println("==============================");				
-			System.out.println("정말 탈퇴하시겠습니까?(Y)");
-			
-			System.out.println("1. 뒤로가기 ");
-			System.out.println("2. 처음으로가기");
-			System.out.println("==============================");
-			System.out.print("메뉴 선택 : ");
-			String input = sc.nextLine();
-						
-			if (input.equals("Y")|input.equals("y")) {
-				memberOutpw(); //회원탈퇴 비밀번호 확인 입력화면
-				break;
-			} else if (input.equals("N")|input.equals("n")) { //뒤로가기
-				
-				return;
-						
-			} else if (input.equals("1")) { //뒤로가기
-				
-				return;
-				
-			} else  if(input.equals("2")){ //처음으로가기
-				Mypage.printmypage();
-			}
-			
-		}//for
-		
-	}
-
-	//회원탈퇴 비밀번호 입력
-	private void memberOutpw() {
-
-		for (;;) {
-			
-			Scanner sc = new Scanner(System.in);
-			
-			System.out.printf("회원탈퇴에 들어왔습니다. 비밀번호를 입력해주세요.\n");
-			System.out.println("==============================");				
-			System.out.println("1. 뒤로가기 ");
-			System.out.println("2. 처음으로가기");
-			System.out.println("==============================");
-			System.out.print("메뉴 선택 : ");
-			String input = sc.nextLine();
-			
-			if (input.equals("1")) { //뒤로가기
-				memberOutprint();
-				return;
-			} else if (input.equals("2")) { //처음으로가기
-				return;
-			} else {
-								
-				if(Member.getmPwd().equals(input)) {
-					pwIdentify(input);
-				} else {
-					System.out.println("==============================");
-					System.out.println("비밀번호가 틀렸습니다");
-				}
-			}
-		}//for
-	}
-
-	private void pwIdentify(String input) {
-								
-		//현재 고객정보 목록 불러오기
-		String path = "C:\\DDGCinema-master\\DDGCinema-master\\[02] 데이터 파일\\고객정보.txt";
-		File dir = new File(path);
-				
-		//System.out.println(dir.getAbsolutePath());
-		//파일 읽어 오고 list에 저장
-		ArrayList<String> list = new ArrayList<String>();
-
-		BufferedReader reader;
-		try {
-			reader = new BufferedReader
-					(new FileReader("C:\\DDGCinema-master\\DDGCinema-master\\[02] 데이터 파일\\고객정보.txt"));
-			
-			String line = null;
-			
-			try {
-				while((line = reader.readLine()) != null) {
-								
-					list.add(line); 
-					
-				}
-				reader.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}//try-catch
-			
-		
-		dir.delete(); //기존 파일 삭제 하기
-				
-		//파일 다시 쓰고 저장하기
-		try {
-			BufferedWriter writer = new BufferedWriter
-					(new FileWriter("C:\\DDGCinema-master\\DDGCinema-master\\[02] 데이터 파일\\고객정보.txt", true));
-			
-			for (String text : list) {
-								
-				String[] m = new String[10];
-				m = text.split("■");
-				
-				//입력받은 비밀번호
-				String password = input;
-								
-				//입력 받은 비밀번호 = 회원정보 일치하면
-				if(password.equals(m[2])) {
-					//쓰기 X				
-				} else {
-				
-					writer.write(text+"\n"); //나머지 값 쓰기		
-					
-				}
-											
-			}
-						
-			
-			writer.close();
-			memberoutSuccess(); //회원탈퇴 성공 화면
-						
-		} catch (IOException e) {
-			e.printStackTrace();
-		}//try-catch
-		
-		
-		
-		
-	}
-
-	//회원탈퇴 성공화면 출력
-	private void memberoutSuccess() {
-		
-		for (;;) {
-			
-			Scanner sc = new Scanner(System.in);
-			
-			System.out.printf("회원탈퇴가 성공적으로 이루어졌습니다.\n");
-			System.out.println("==============================");				
-			System.out.println("1. 뒤로가기 ");
-			System.out.println("2. 처음으로가기");
-			System.out.println("==============================");
-			System.out.print("메뉴 선택 : ");
-			String input = sc.nextLine();
-			
-			if (input.equals("1")) { //뒤로가기
-				memberOutprint();
-				return;
-				
-			} else if (input.equals("2")) { //처음으로가기
-				System.out.println("이용해주셔서 감사합니다.");
-				System.out.println("프로그램을 종료합니다.");
-				System.exit(0);
-				//return;
-			} 
-						
-			
-			}//for
-		
-		
-		
-	}
 	
-}
+		//필드 맴버변수, 읽을 파일 경로
+		static File path1 = new File("data");
+		static File path = new File("data/test.txt");
+		public String[] args;
+		public Member member;
+		
+		//이너 클래스
+		public class MemInfo {
+			Scanner sc;
+			private String mNum = "0";
+			private String mId;
+			private String mPwd;
+			private String mName;
+			private String mBirth;
+			private String mAddress;
+			private String mPhone;
+			private String mEmail;
+			private String mGrade;
+			private String mPoint = "0";
+			List<MemInfo> list = new ArrayList<MemInfo>();
 
+
+			//맴버 정보 생성자
+			MemInfo(String mNum, String mId, String mPwd, String mName, String mBirth, String mAddress, String mPhone,
+					String mEmail, String mGrade, String mPoint) {
+				this.mNum = mNum;
+				this.mId = mId ;
+				this.mPwd = mPwd ;
+				this.mName = mName ;
+				this.mBirth = mBirth ;
+				this.mAddress = mAddress ;
+				this.mPhone = mPhone ;
+				this.mEmail = mEmail ;
+				this.mGrade = mGrade ;
+				this.mPoint = mPoint ;
+
+			}
+
+			//맴버 생성자
+			MemInfo(){}
+			
+
+			//직원 목록 부르기
+			public void callList() {
+				try (Reader r = new FileReader(path); BufferedReader br = new BufferedReader(r);) {
+//					System.out.print("순번     ID	PW	이름	생년월일	주소      핸드폰번호	이메일	등급		포인트\n");
+					String line = null; // line 초기화
+					list.clear(); 
+					int i = 1; // i 초기화
+					while ((line = br.readLine()) != null) {
+//						System.out.println((i++) + "   " + line); //출력
+						String[] m = line.split("■");
+						MemInfo test = new MemInfo(m[0], m[1], m[2], m[3], m[4], m[5], m[6], m[7], m[8], m[9]);
+					
+						list.add(test);
+					}
+					
+					}catch(IOException e) {
+						System.out.println("오류");
+						}
+				}
+			
+			
+			
+			// 회원삭제
+			public void delMemlist(Member member)  throws InputMismatchException, NumberFormatException, IOException {
+				
+				callList(); // 기존 리스트 부르기
+				
+				sc = new Scanner(System.in); //입력받을 스캐너 실행
+				System.out.println("사용중인 비밀번호를 입력해주세요.");
+				String pwnumber = sc.nextLine(); //리스트 인덱스 번호 입력 받기
+				
+				if((member.getmPwd().equals(pwnumber))) {
+					list.remove(Integer.parseInt(member.getmNum())-1);
+					listWrite(false); //txt 파일에 덮어 쓰기
+					System.out.println("탈퇴가 완료되었습니다. 처음으로 돌아갑니다.");
+					Login.main(args);
+					
+				}else {
+					System.out.println("잘못 입력하였습니다. 처음으로 돌아갑니다.");
+					Login.main(args);
+				}
+		};
+		
+			//파일에 덮어쓰기
+			public void listWrite(boolean trueOrFalse) throws IOException{
+				sc = new Scanner(System.in);
+				Writer os = new FileWriter(path,trueOrFalse);
+				BufferedWriter bos = new BufferedWriter(os);
+				int i = 1 ;
+				for (MemInfo e : list) {
+					bos.write(i++ + "■");
+					bos.write(e.mId + "■");
+					bos.write(e.mPwd + "■");
+					bos.write(e.mName + "■");
+					bos.write(e.mBirth + "■");
+					bos.write(e.mAddress + "■");
+					bos.write(e.mPhone + "■");
+					bos.write(e.mEmail + "■");
+					bos.write(e.mGrade + "■");
+					bos.write(e.mPoint);
+					bos.newLine();
+				}
+				bos.close();
+			}
+			
+			@Override
+			public boolean equals(Object obj) {
+				if (obj instanceof MemInfo) {
+					if (this.mPwd == ((MemInfo) obj).mPwd)
+						return true;
+				}
+				return false;
+			}
+		}
+
+
+		
+			// TODO Auto-generated method stub
+			
+		}

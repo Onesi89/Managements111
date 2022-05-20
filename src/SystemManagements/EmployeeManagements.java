@@ -34,10 +34,8 @@ public class EmployeeManagements implements interfaceList.HumanInfoEditable{
 		
 	}
 	//생성자 2
-	EmployeeManagements(String name, String phoneNumber, String duty, String joinDate){
-		
-		path = new File("data/employee.txt");
-		sc = new Scanner(System.in);
+	EmployeeManagements(String name, String phoneNumber, String duty, String joinDate) throws IOException{
+		this();
 		
 		this.name = name;
 		this.phoneNumber = phoneNumber;
