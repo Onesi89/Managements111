@@ -26,6 +26,7 @@ public class MovieList {
 
 	// 파일 덮어쓰기전에 실행하세요. txt파일에서 내용을 arraylist에 담기
 	public void movieListCall() {
+		
 		File file = new File("data/movieArray.txt");
 		movieArray = new ArrayList<Movie>();
 
@@ -33,9 +34,13 @@ public class MovieList {
 
 		try (Reader r = new FileReader(file); BufferedReader br = new BufferedReader(r)) {
 			
+			//txt 파일 읽기
 			while ((line = br.readLine()) != null) {
-				String[] array = line.split("■"); // ■ 삭제
-				Movie movie = new Movie(); // 영화 객체 얻기
+				// ■ 삭제
+				String[] array = line.split("■"); 
+				
+				// 영화 객체 얻기
+				Movie movie = new Movie(); 
 
 				movie.movieName = array[0];
 				movie.visitorNumber = Integer.parseInt(array[1]);
@@ -43,8 +48,9 @@ public class MovieList {
 				movie.plot = array[3];
 				movie.screenNumber = Integer.parseInt(array[4]);
 				movie.sales = Integer.parseInt(array[5]);
-
-				movieArray.add(movie); // array에 1개 추가
+				
+				// moveiArray에 1개 추가
+				movieArray.add(movie);
 			}
 
 		} catch (IOException e) {
@@ -73,6 +79,7 @@ public class MovieList {
 				bw.write("■");
 				bw.write(String.valueOf((int) movieArray.get(i).sales)); // write long 안됨..
 				bw.newLine();
+				bw.flush();
 			}
 		} catch (IOException e) {
 			System.out.println(e);
@@ -85,7 +92,9 @@ public class MovieList {
    //영화 정보 출력
 	public void movieInfo() throws InputMismatchException, IOException{ // movieArray.get(i).movieInfo() 출력임
 		movieListCall();
+		
 		System.out.println("--------------------");
+		
 		for (int i = 0; i < movieArray.size(); i++) {
 			System.out.print(i+1+". ");
 			movieArray.get(i).movieInfo();
@@ -115,7 +124,7 @@ public class MovieList {
 		String plot = sc.nextLine();
 		movie.setPlot(plot);
 		
-	
+		//movieArray에 movie 객체 추가
 		movieArray.add(movie);
 		
 		movieWrite();
@@ -125,10 +134,14 @@ public class MovieList {
 		
 	// 영화 삭제
 	public void delFromList() { // movieArray.get(i).movieInfo() 출력임
+		
 		movieListCall();
+		
+		//영화 이름 출력
 		for(int i = 0; i< movieArray.size(); i++) {
 			System.out.println((i+1) + " ."+ movieArray.get(i).movieName);
 		}
+		
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("삭제할 영화의 번호를 선택해주세요.");
@@ -137,6 +150,7 @@ public class MovieList {
 		System.out.println("정말 삭제하시겠습니까(y/n)");
 		String select = sc.nextLine();
 
+		//선택한 영화를 movieArray 제거 및 txt 파일에 저장 
 		if (select.equals("y")) {
 			movieArray.remove(number);
 			System.out.println("삭제 되었습니다. 영화 관리 화면으로 돌아갑니다.");
@@ -144,6 +158,5 @@ public class MovieList {
 		} else {
 			System.out.println("잘못 입력하였습니다. 영화 관리 화면으로 돌아갑니다.");
 		}
-
 	}
 }

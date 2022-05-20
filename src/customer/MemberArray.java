@@ -22,28 +22,15 @@ public class MemberArray implements HumanInfoEditable{
 	
 	
 	//로그인 할 떄 아이디 확인 비밀번호 확인
-	
-//	public boolean check1(String mId, String mPw) {
-//		for (int i = 0; i < memberArray.size(); i++) {
-//			if (memberArray.get(i).getmId().equals(mId)) {
-//				if (memberArray.get(i).getmPwd().equals(mPw)) {
-//					System.out.println("로그인에 성공하였습니다.");
-//					System.out.println("-------------------------");
-//					return true;
-//				}
-//			}
-//		}
-//		return false;
-//	}
-	
 	public Member check(String mId, String mPw) {
+	
 		listCall();
 
 		for (int i = 0; i < memberArray.size();i++) {
 			if (memberArray.get(i).getmId().equals(mId)) {
 				if (memberArray.get(i).getmPwd().equals(mPw)) {
-				System.out.println("로그인에 성공하였습니다.");
 				System.out.println("-------------------------");
+				System.out.println("로그인에 성공하였습니다.");
 				return memberArray.get(i);
 				}		
 				
@@ -102,8 +89,6 @@ public class MemberArray implements HumanInfoEditable{
 		sc = new Scanner(System.in);
 
 		System.out.println("회원 가입 페이지입니다.");
-		System.out.println("-------------------------"); // 구분선
-
 		System.out.println("-------------------------"); // 구분선
 
 		String mNum = String.valueOf(memberArray.size());
@@ -208,6 +193,7 @@ public class MemberArray implements HumanInfoEditable{
 			bos.write(e.getmGrade() + "■");
 			bos.write(e.getmPoint());
 			bos.newLine();
+			bos.flush();
 		}
 		bos.close();
 	}

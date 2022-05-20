@@ -26,13 +26,14 @@ public class MovieReservation {
    
    public static void main(String[] args) throws InputMismatchException, IOException {
 	   MovieReservation ww = new MovieReservation();
-	   ww.asd();
+	   ww.reservation();
 	    
    } 
    
-   public void asd() throws InputMismatchException, IOException {  Scanner sc = new Scanner(System.in);
-   //영화리스트 클래스에서 영화 정보 불러오기
    
+   public void reservation() throws InputMismatchException, IOException {  Scanner sc = new Scanner(System.in);
+   
+   //영화리스트 클래스에서 영화 정보 불러오기
    
    MovieList movie = new MovieList();
    movie.movieListCall();
@@ -55,6 +56,7 @@ public class MovieReservation {
    System.out.println("어린이 인원을 입력해주세요>>");
    String childCnt = sc.nextLine();
    int totTotalCnt = Integer.parseInt(adultCnt) + Integer.parseInt(childCnt);
+   
    
 //최종 결정사항 map에 넣기 infomap
    Boolean continueFlag = true;
