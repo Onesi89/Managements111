@@ -170,7 +170,7 @@ public class EmployeeManagements implements interfaceList.HumanInfoEditable{
 					}
 					break out;
 				} else if (a.equals("n")) {
-					System.out.println("! 146 잘못 입력하였습니다. 처음으로 돌아갑니다.");
+					System.out.println("잘못 입력하였습니다. 처음으로 돌아갑니다.");
 				} else {
 					System.out.println("다시 입력해주세요(y/n)");
 				}

@@ -47,8 +47,10 @@ import customer.MemberArray;
 				Scanner sc = new Scanner(System.in);
 				System.out.println("---------------------"); // 구분선
 
-				System.out.println("영화를 선택해주세요>>");
+				System.out.print("영화를 선택해주세요>>");
+				
 				int num = Integer.parseInt(sc.nextLine());
+				System.out.println();
 				this.num = num;
 
 				System.out.println("선택한 영화 : " + movieArray.get(num - 1).movieName);
@@ -119,7 +121,10 @@ import customer.MemberArray;
 				
 				
 				
-			} catch(NumberFormatException e) {
+			} catch(ArrayIndexOutOfBoundsException e) {
+				System.out.println("입력을 잘못 하였습니다. 처음부터 다시 해주세요.");
+			}
+				catch(NumberFormatException e) {
 				System.out.println("입력을 잘못 하였습니다. 처음부터 다시 해주세요.");
 			}
 				catch (InputMismatchException e) {
